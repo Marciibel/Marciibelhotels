@@ -4,1329 +4,1215 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marciibel Hotels Budapest</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, collection, addDoc, getDocs, getDoc, setDoc, query, where, doc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDKTjKz5rZ0CAp6Senl95yIMetbdf_UJJ0",
-    authDomain: "marciibel-hotels.firebaseapp.com",
-    projectId: "marciibel-hotels",
-    storageBucket: "marciibel-hotels.firebasestorage.app",
-    messagingSenderId: "74569747642",
-    appId: "1:74569747642:web:587b5cf2443509b8460683"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  window._fb = { auth, db, collection, addDoc, getDocs, getDoc, setDoc, query, where, doc, updateDoc, deleteDoc, serverTimestamp, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updatePassword, EmailAuthProvider, reauthenticateWithCredential };
-  window.dispatchEvent(new Event('firebaseReady'));
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,onAuthStateChanged,updatePassword,EmailAuthProvider,reauthenticateWithCredential}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import{getFirestore,collection,addDoc,getDocs,getDoc,setDoc,query,where,doc,updateDoc,deleteDoc,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const cfg={apiKey:"AIzaSyDKTjKz5rZ0CAp6Senl95yIMetbdf_UJJ0",authDomain:"marciibel-hotels.firebaseapp.com",projectId:"marciibel-hotels",storageBucket:"marciibel-hotels.firebasestorage.app",messagingSenderId:"74569747642",appId:"1:74569747642:web:587b5cf2443509b8460683"};
+const app=initializeApp(cfg);
+const auth=getAuth(app);
+const db=getFirestore(app);
+window._fb={auth,db,collection,addDoc,getDocs,getDoc,setDoc,query,where,doc,updateDoc,deleteDoc,serverTimestamp,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,onAuthStateChanged,updatePassword,EmailAuthProvider,reauthenticateWithCredential};
+window.dispatchEvent(new Event('fbReady'));
 </script>
-
 <style>
-:root{
-  --bg:#080808;--surface:#111;--surface2:#1a1a1a;--surface3:#222;
-  --border:#2a2a2a;--bl:#333;
-  --gold:#c9a84c;--gold2:#e8c97a;
-  --gd:rgba(201,168,76,0.15);--gg:rgba(201,168,76,0.08);
-  --text:#f0ece4;--td:#8a8078;--tm:#4a4540;
-  --danger:#c0392b;--success:#27ae60;--warn:#e67e22;
-  --r:3px;--nh:68px;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
-::-webkit-scrollbar{width:4px;height:4px;}
-::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--bl);border-radius:2px;}
+:root{--bg:#07070c;--s1:#0f0f18;--s2:#161622;--s3:#1e1e2e;--br:#252538;--bl:#333348;--gold:#c9a84c;--gold2:#e2c87a;--gd:rgba(201,168,76,.18);--gg:rgba(201,168,76,.07);--tx:#ede8de;--td:#7c7468;--tm:#42404e;--red:#a83232;--green:#2a7a4f;--blue:#1e4d7a;--r:2px;--nh:72px;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--tx);font-family:'Jost',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--bl);border-radius:2px;}
+@keyframes fu{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes mi{from{opacity:0;transform:scale(.96)translateY(8px);}to{opacity:1;transform:scale(1)translateY(0);}}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nh);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(8,8,8,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:border-color 0.3s;}
-nav.scrolled{border-bottom-color:var(--gd);}
-.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:600;color:var(--gold);display:flex;align-items:center;gap:0.6rem;cursor:pointer;letter-spacing:0.04em;}
-.nav-logo-sub{font-family:'Jost',sans-serif;font-size:0.62rem;font-weight:400;color:var(--td);letter-spacing:0.25em;text-transform:uppercase;line-height:1;}
-.nav-desktop{display:flex;align-items:center;gap:0.2rem;}
-.nl{padding:0.45rem 0.9rem;font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--td);cursor:pointer;background:none;border:none;font-family:'Jost',sans-serif;transition:all 0.2s;border-radius:2px;}
-.nl:hover{color:var(--gold);}
-.nl.active{color:var(--gold);background:var(--gg);}
-.nl.gold-btn{color:var(--gold);border:1px solid var(--gd);}
-.nav-pill{display:flex;align-items:center;gap:0.55rem;background:var(--surface2);border:1px solid var(--bl);border-radius:999px;padding:0.28rem 0.8rem 0.28rem 0.35rem;font-size:0.72rem;color:var(--td);}
-.nav-av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;font-size:0.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
-
-/* HAMBURGER */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nh);display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(7,7,12,.97);backdrop-filter:blur(24px);border-bottom:1px solid var(--br);}
+nav.sc{border-bottom-color:var(--gd);}
+.logo{display:flex;align-items:center;gap:.9rem;cursor:pointer;}
+.logo-emblem{width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;}
+.logo-emblem::after{content:'';position:absolute;inset:4px;border-radius:50%;border:1px solid var(--gd);}
+.logo-emblem span{font-size:1rem;color:var(--gold);z-index:1;}
+.logo-text .logo-main{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;line-height:1;}
+.logo-text .logo-sub{font-size:.5rem;letter-spacing:.45em;text-transform:uppercase;color:var(--td);margin-top:2px;}
+.nd{display:flex;align-items:center;gap:.1rem;}
+.nl{padding:.42rem .85rem;font-size:.67rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--td);cursor:pointer;background:none;border:none;font-family:'Jost',sans-serif;transition:color .2s;border-radius:1px;}
+.nl:hover{color:var(--gold);}.nl.on{color:var(--gold);background:var(--gg);}
+.nl.gb{color:var(--gold);border:1px solid var(--gd);}
+.npill{display:flex;align-items:center;gap:.5rem;background:var(--s2);border:1px solid var(--bl);border-radius:999px;padding:.25rem .75rem .25rem .3rem;font-size:.7rem;color:var(--td);}
+.nav-av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#07070c;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;}
 .hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;}
-.hbg span{display:block;width:22px;height:1.5px;background:var(--td);transition:all 0.3s;}
-.hbg.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);background:var(--gold);}
-.hbg.open span:nth-child(2){opacity:0;}
-.hbg.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);background:var(--gold);}
-
-/* DRAWER */
-.drawer{display:none;position:fixed;top:var(--nh);right:0;bottom:0;width:280px;z-index:190;background:var(--surface);border-left:1px solid var(--border);padding:1.5rem;flex-direction:column;gap:0.3rem;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);}
-.drawer.open{transform:translateX(0);}
-.dov{display:none;position:fixed;inset:0;z-index:180;background:rgba(0,0,0,0.65);backdrop-filter:blur(2px);}
-.dov.open{display:block;}
-.dl{padding:0.8rem 1rem;font-size:0.78rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--td);cursor:pointer;background:none;border:none;border-bottom:1px solid var(--border);text-align:left;transition:color 0.2s;width:100%;font-family:'Jost',sans-serif;}
-.dl:hover,.dl.active{color:var(--gold);}
+.hbg span{display:block;width:22px;height:1px;background:var(--td);transition:all .3s;}
+.hbg.op span:nth-child(1){transform:translateY(6px)rotate(45deg);background:var(--gold);}
+.hbg.op span:nth-child(2){opacity:0;}
+.hbg.op span:nth-child(3){transform:translateY(-6px)rotate(-45deg);background:var(--gold);}
+.drw{display:none;position:fixed;top:var(--nh);right:0;bottom:0;width:280px;z-index:190;background:var(--s1);border-left:1px solid var(--br);padding:1.5rem;flex-direction:column;gap:.2rem;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.drw.op{transform:translateX(0);}
+.dov{display:none;position:fixed;inset:0;z-index:180;background:rgba(0,0,0,.72);}
+.dov.op{display:block;}
+.dl{padding:.75rem 1rem;font-size:.72rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--td);cursor:pointer;background:none;border:none;border-bottom:1px solid var(--br);text-align:left;transition:color .2s;width:100%;font-family:'Jost',sans-serif;}
+.dl:hover,.dl.on{color:var(--gold);}
 
 /* PAGES */
 .page{display:none;min-height:100vh;padding-top:var(--nh);}
-.page.active{display:block;}
+.page.on{display:block;}
 .pflex{display:none;min-height:100vh;padding-top:var(--nh);}
-.pflex.active{display:flex;flex-direction:column;}
-
+.pflex.on{display:flex;flex-direction:column;}
 .con{max-width:1160px;margin:0 auto;padding:2.5rem 2rem;}
-
-/* PAGE HEADER */
-.ph{padding:3rem 2rem 2rem;max-width:1160px;margin:0 auto;border-bottom:1px solid var(--border);margin-bottom:2.5rem;}
-.pe{font-size:0.62rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
-.pt{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;line-height:1.1;}
+.ph{padding:3rem 2rem 2rem;max-width:1160px;margin:0 auto;border-bottom:1px solid var(--br);margin-bottom:2.5rem;}
+.pe{font-size:.57rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;display:flex;align-items:center;gap:.75rem;}
+.pe::after{content:'';width:28px;height:1px;background:var(--gd);}
+.pt{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:600;line-height:1.05;letter-spacing:.02em;}
 .pt em{font-style:italic;color:var(--gold);}
-.ps{color:var(--td);font-size:0.8rem;margin-top:0.35rem;}
-
-/* HERO */
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(201,168,76,0.07) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(201,168,76,0.04) 0%,transparent 60%);}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.032) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.032) 1px,transparent 1px);background-size:80px 80px;}
-@keyframes fu{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.ps{color:var(--td);font-size:.8rem;margin-top:.4rem;}
 
 /* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.68rem 1.75rem;font-family:'Jost',sans-serif;font-size:0.7rem;font-weight:500;letter-spacing:0.17em;text-transform:uppercase;cursor:pointer;border:none;transition:all 0.22s;border-radius:var(--r);}
-.bg{background:var(--gold);color:#080808;font-weight:600;}
-.bg:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,168,76,0.25);}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.8rem;font-family:'Jost',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;border:none;transition:all .2s;border-radius:var(--r);}
+.bg{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#07070c;font-weight:600;}
+.bg:hover{filter:brightness(1.12);transform:translateY(-1px);box-shadow:0 8px 28px rgba(201,168,76,.3);}
 .bo{background:transparent;color:var(--gold);border:1px solid var(--gd);}
 .bo:hover{background:var(--gg);border-color:var(--gold);}
 .bgh{background:transparent;color:var(--td);border:1px solid var(--bl);}
-.bgh:hover{border-color:var(--td);color:var(--text);}
-.bd{background:var(--danger);color:#fff;}
-.bd:hover{background:#e74c3c;}
-.bs{background:var(--success);color:#fff;}
-.bs:hover{background:#2ecc71;}
-.bw{background:var(--warn);color:#fff;}
-.bw:hover{background:#f39c12;}
-.bsm{padding:0.4rem 0.9rem;font-size:0.66rem;}
+.bgh:hover{border-color:var(--td);color:var(--tx);}
+.bd{background:var(--red);color:#fff;}.bd:hover{filter:brightness(1.15);}
+.bs{background:var(--green);color:#fff;}.bs:hover{filter:brightness(1.15);}
+.bsm{padding:.38rem .85rem;font-size:.64rem;}
 .blk{width:100%;justify-content:center;}
-.blg{padding:0.85rem 2.4rem;font-size:0.76rem;}
+.blg{padding:.85rem 2.6rem;font-size:.74rem;}
 
 /* CARD */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);}
+.card{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);}
 
-/* ROOMS */
-.rooms-toolbar{display:flex;gap:0.85rem;align-items:center;flex-wrap:wrap;margin-bottom:2rem;}
+/* TYPE CARDS */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.5rem;}
+.tc{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;cursor:pointer;}
+.tc:hover{transform:translateY(-5px);border-color:var(--gd);box-shadow:0 20px 50px rgba(0,0,0,.6);}
+.tc-img{height:220px;position:relative;background:linear-gradient(160deg,var(--s2),#12101e);overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.tc-slides{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.tc-slide{position:absolute;font-size:5.5rem;transition:opacity .5s,transform .5s;display:flex;align-items:center;justify-content:center;inset:0;}
+.tc-slide.hid{opacity:0;transform:scale(1.08);}
+.gdots{position:absolute;bottom:.8rem;left:50%;transform:translateX(-50%);display:flex;gap:.35rem;z-index:2;}
+.gdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:all .2s;}
+.gdot.on{background:var(--gold);transform:scale(1.4);}
+.tc-badges{position:absolute;top:.75rem;left:.75rem;display:flex;gap:.35rem;z-index:2;}
+.tc-rcnt{position:absolute;top:.75rem;right:.75rem;background:rgba(0,0,0,.75);border:1px solid var(--bl);border-radius:1px;padding:.18rem .6rem;font-size:.62rem;color:var(--td);z-index:2;}
+.rb{padding:.18rem .55rem;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;border-radius:1px;font-weight:600;}
+.rb-a{background:rgba(42,122,79,.2);color:#4ec97f;border:1px solid rgba(42,122,79,.3);}
+.rb-f{background:rgba(201,168,76,.2);color:var(--gold);border:1px solid var(--gd);}
+.rb-n{background:rgba(168,50,50,.2);color:#e06060;border:1px solid rgba(168,50,50,.3);}
+.tc-body{padding:1.5rem;}
+.tc-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:.3rem;letter-spacing:.02em;}
+.tc-desc{color:var(--td);font-size:.78rem;line-height:1.65;margin-bottom:.9rem;}
+.ams{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.1rem;}
+.am{background:var(--s2);border:1px solid var(--bl);color:var(--td);padding:.2rem .55rem;font-size:.63rem;border-radius:1px;}
+.tc-foot{display:flex;align-items:center;justify-content:space-between;padding-top:.9rem;border-top:1px solid var(--br);}
+.tc-price{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--gold);}
+.tc-price small{font-family:'Jost',sans-serif;font-size:.62rem;color:var(--td);font-weight:300;}
+
+/* TOOLBAR */
+.toolbar{display:flex;gap:.85rem;align-items:center;flex-wrap:wrap;margin-bottom:2rem;}
 .sb{position:relative;flex:1;min-width:180px;}
-.sb input{background:var(--surface);border:1px solid var(--bl);color:var(--text);padding:0.65rem 1rem 0.65rem 2.4rem;font-family:'Jost',sans-serif;font-size:0.82rem;border-radius:var(--r);width:100%;outline:none;transition:border-color 0.2s;}
+.sb input{background:var(--s1);border:1px solid var(--bl);color:var(--tx);padding:.65rem 1rem .65rem 2.4rem;font-family:'Jost',sans-serif;font-size:.82rem;border-radius:var(--r);width:100%;outline:none;transition:border-color .2s;}
 .sb input:focus{border-color:var(--gold);}
-.sb::before{content:'⌕';position:absolute;left:0.8rem;top:50%;transform:translateY(-50%);color:var(--tm);font-size:1.1rem;}
-.fsel{background:var(--surface);border:1px solid var(--bl);color:var(--td);padding:0.65rem 1rem;font-family:'Jost',sans-serif;font-size:0.77rem;border-radius:var(--r);outline:none;cursor:pointer;transition:border-color 0.2s;}
+.sb::before{content:'⌕';position:absolute;left:.8rem;top:50%;transform:translateY(-50%);color:var(--tm);font-size:1.1rem;}
+.fsel{background:var(--s1);border:1px solid var(--bl);color:var(--td);padding:.65rem 1rem;font-family:'Jost',sans-serif;font-size:.77rem;border-radius:var(--r);outline:none;cursor:pointer;}
 .fsel:focus{border-color:var(--gold);}
-.fsel option{background:var(--surface2);}
-.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.4rem;}
-.rc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:transform 0.28s,border-color 0.28s,box-shadow 0.28s;}
-.rc:hover{transform:translateY(-4px);border-color:var(--gd);box-shadow:0 16px 40px rgba(0,0,0,0.5);}
-.rg-wrap{position:relative;height:210px;overflow:hidden;background:var(--surface2);}
-.rg-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5rem;background:linear-gradient(135deg,var(--surface2) 0%,#1e1a10 100%);transition:opacity 0.45s,transform 0.45s;}
-.rg-slide.hidden{opacity:0;transform:scale(1.05);}
-.gdots{position:absolute;bottom:0.7rem;left:50%;transform:translateX(-50%);display:flex;gap:0.32rem;}
-.gdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.28);transition:all 0.2s;cursor:pointer;}
-.gdot.active{background:var(--gold);transform:scale(1.35);}
-.rbw{position:absolute;top:0.7rem;left:0.7rem;display:flex;gap:0.35rem;}
-.rb{padding:0.18rem 0.55rem;font-size:0.58rem;letter-spacing:0.13em;text-transform:uppercase;border-radius:2px;font-weight:600;}
-.rba{background:rgba(39,174,96,0.18);color:#2ecc71;border:1px solid rgba(39,174,96,0.3);}
-.rbf{background:rgba(201,168,76,0.18);color:var(--gold);border:1px solid var(--gd);}
-.rb-body{padding:1.4rem;}
-.rn{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;display:flex;align-items:baseline;gap:0.5rem;margin-bottom:0.3rem;}
-.rc-code{font-family:'Jost',sans-serif;font-size:0.62rem;color:var(--tm);font-weight:400;letter-spacing:0.08em;}
-.rd{color:var(--td);font-size:0.78rem;line-height:1.6;margin-bottom:0.9rem;}
-.ams{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:1.1rem;}
-.am{background:var(--surface2);border:1px solid var(--bl);color:var(--td);padding:0.18rem 0.5rem;font-size:0.63rem;letter-spacing:0.04em;border-radius:2px;}
-.rf{display:flex;align-items:center;justify-content:space-between;padding-top:0.9rem;border-top:1px solid var(--border);}
-.rp{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:600;color:var(--gold);}
-.rp small{font-family:'Jost',sans-serif;font-size:0.62rem;color:var(--tm);font-weight:300;}
+.fsel option{background:var(--s2);}
 
-/* STARS */
+/* STARS & REVIEWS */
 .stars{display:flex;gap:2px;}
-.star{color:var(--tm);font-size:0.9rem;cursor:pointer;transition:color 0.15s;user-select:none;}
-.star.on,.star.hov{color:var(--gold);}
-
-/* REVIEWS */
-.rvg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.2rem;}
-.rvc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.4rem;transition:border-color 0.2s;}
+.star{color:var(--tm);font-size:.9rem;cursor:pointer;transition:color .15s;user-select:none;}
+.star.on,.star.hv{color:var(--gold);}
+.rvgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.2rem;}
+.rvc{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:1.4rem;transition:border-color .2s;}
 .rvc:hover{border-color:var(--gd);}
-.rvh{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.7rem;}
-.rvav{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--surface2),var(--surface3));border:1px solid var(--bl);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:0.85rem;color:var(--gold);}
-.rvtxt{font-size:0.78rem;color:var(--td);line-height:1.65;font-style:italic;}
+.rvh{display:flex;align-items:center;gap:.7rem;margin-bottom:.75rem;}
+.rvav{width:36px;height:36px;border-radius:50%;background:var(--s3);border:1px solid var(--bl);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);}
+.rvtxt{font-size:.78rem;color:var(--td);line-height:1.65;font-style:italic;}
 
 /* WIZARD */
 .wsteps{display:flex;align-items:center;margin-bottom:2.5rem;}
-.ws{display:flex;align-items:center;gap:0.7rem;flex:1;position:relative;}
-.ws:not(:last-child)::after{content:'';flex:1;height:1px;background:var(--border);margin:0 0.75rem;transition:background 0.4s;}
-.ws.done:not(:last-child)::after{background:var(--gd);}
-.wsn{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--bl);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:600;color:var(--tm);transition:all 0.3s;flex-shrink:0;}
-.ws.active .wsn{border-color:var(--gold);color:var(--gold);background:var(--gg);}
-.ws.done .wsn{border-color:var(--gold);background:var(--gold);color:#080808;}
-.wsl{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--tm);transition:color 0.3s;white-space:nowrap;}
-.ws.active .wsl{color:var(--gold);}
-.ws.done .wsl{color:var(--td);}
-.wp{display:none;animation:fu 0.28s ease;}
-.wp.active{display:block;}
+.wseg{display:flex;align-items:center;gap:.6rem;}
+.wline{flex:1;height:1px;background:var(--br);margin:0 .6rem;transition:background .4s;}
+.wline.dn{background:var(--gd);}
+.wsn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--bl);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:600;color:var(--tm);transition:all .3s;flex-shrink:0;}
+.wseg.ac .wsn{border-color:var(--gold);color:var(--gold);background:var(--gg);}
+.wseg.dn .wsn{border-color:var(--gold);background:var(--gold);color:#07070c;}
+.wsl{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tm);white-space:nowrap;transition:color .3s;}
+.wseg.ac .wsl{color:var(--gold);}.wseg.dn .wsl{color:var(--td);}
+.wp{display:none;animation:fu .28s ease;}
+.wp.ac{display:block;}
 
 /* FORMS */
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
-@media(max-width:600px){.fr,.fr3{grid-template-columns:1fr;}}
-.fg{display:flex;flex-direction:column;gap:0.38rem;}
-label{font-size:0.67rem;letter-spacing:0.17em;text-transform:uppercase;color:var(--td);font-weight:500;}
-input,select,textarea{background:var(--surface2);border:1px solid var(--bl);color:var(--text);padding:0.72rem 1rem;font-family:'Jost',sans-serif;font-size:0.84rem;border-radius:var(--r);width:100%;outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
-input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,0.08);}
+@media(max-width:580px){.fr{grid-template-columns:1fr;}}
+.fg{display:flex;flex-direction:column;gap:.38rem;}
+label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--td);font-weight:500;}
+input,select,textarea{background:var(--s2);border:1px solid var(--bl);color:var(--tx);padding:.72rem 1rem;font-family:'Jost',sans-serif;font-size:.84rem;border-radius:var(--r);width:100%;outline:none;transition:border-color .2s,box-shadow .2s;}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.08);}
 input::placeholder{color:var(--tm);}
-textarea{resize:vertical;min-height:85px;}
-select option{background:var(--surface2);}
+textarea{resize:vertical;min-height:80px;}
+select option{background:var(--s2);}
 
 /* SUMMARY */
-.sumbox{background:var(--surface2);border:1px solid var(--bl);border-radius:var(--r);padding:1.5rem;position:sticky;top:calc(var(--nh) + 1rem);}
-.sum-title{font-family:'Playfair Display',serif;font-size:0.95rem;border-bottom:1px solid var(--border);padding-bottom:0.7rem;margin-bottom:0.9rem;}
-.sr{display:flex;justify-content:space-between;font-size:0.78rem;padding:0.32rem 0;color:var(--td);}
-.sr.tot{border-top:1px solid var(--border);margin-top:0.4rem;padding-top:0.8rem;font-size:0.95rem;color:var(--text);}
-.sr.tot span:last-child{color:var(--gold);font-family:'Playfair Display',serif;font-size:1.05rem;}
-.sum-note{font-size:0.68rem;color:var(--tm);margin-top:0.7rem;padding-top:0.7rem;border-top:1px solid var(--border);line-height:1.65;}
+.sumbox{background:var(--s2);border:1px solid var(--bl);border-radius:var(--r);padding:1.5rem;position:sticky;top:calc(var(--nh)+1rem);}
+.sum-t{font-family:'Cormorant Garamond',serif;font-size:1.1rem;border-bottom:1px solid var(--br);padding-bottom:.7rem;margin-bottom:.9rem;}
+.sr{display:flex;justify-content:space-between;font-size:.78rem;padding:.3rem 0;color:var(--td);}
+.sr.tot{border-top:1px solid var(--br);margin-top:.4rem;padding-top:.8rem;font-size:.95rem;color:var(--tx);}
+.sr.tot span:last-child{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.15rem;}
+.sum-note{font-size:.67rem;color:var(--tm);margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--br);line-height:1.65;}
 
 /* CALENDAR */
-.calw{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.6rem;}
-.calh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.4rem;}
-.cal-ml{font-family:'Playfair Display',serif;font-size:1.05rem;}
-.calbtn{width:32px;height:32px;border:1px solid var(--bl);background:transparent;color:var(--td);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;border-radius:var(--r);transition:all 0.2s;}
+.calw{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:1.75rem;}
+.calh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.cal-ml{font-family:'Cormorant Garamond',serif;font-size:1.2rem;letter-spacing:.05em;}
+.calbtn{width:34px;height:34px;border:1px solid var(--bl);background:transparent;color:var(--td);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;border-radius:var(--r);transition:all .2s;}
 .calbtn:hover{border-color:var(--gold);color:var(--gold);}
 .calg{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
-.cdn{text-align:center;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--tm);padding:0.38rem 0;}
-.cd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:0.76rem;border-radius:var(--r);cursor:pointer;transition:all 0.15s;}
-.cd:hover:not(.empty):not(.past){background:var(--gg);color:var(--gold);}
-.cd.empty,.cd.past{cursor:default;color:var(--tm);opacity:0.4;}
-.cd.today{background:var(--gg);color:var(--gold);font-weight:600;}
-.cd.has-b{background:rgba(201,168,76,0.12);color:var(--gold);}
-.cd.full-b{background:rgba(192,57,43,0.15);color:#e74c3c;}
+.cdn{text-align:center;font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tm);padding:.4rem 0;}
+.cd{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:.74rem;border-radius:1px;cursor:pointer;transition:all .15s;font-weight:300;}
+.cd:hover:not(.em):not(.pa){background:var(--gg);color:var(--gold);}
+.cd.em,.cd.pa{cursor:default;color:var(--tm);opacity:.35;}
+.cd.td2{background:var(--gg);color:var(--gold);font-weight:600;}
+.cd.hb{background:rgba(201,168,76,.14);color:var(--gold);}
+.cd.fb{background:rgba(168,50,50,.14);color:#e06060;}
 .cal-leg{display:flex;gap:1.2rem;margin-top:1.2rem;flex-wrap:wrap;}
-.li{display:flex;align-items:center;gap:0.38rem;font-size:0.66rem;color:var(--tm);}
-.ld{width:8px;height:8px;border-radius:2px;}
+.li{display:flex;align-items:center;gap:.38rem;font-size:.64rem;color:var(--tm);}
+.ld{width:8px;height:8px;border-radius:1px;}
 
-/* TABLE */
+/* TABLES */
 .tw{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;}
-th{background:var(--surface2);padding:0.72rem 1rem;text-align:left;font-size:0.6rem;font-weight:600;letter-spacing:0.17em;text-transform:uppercase;color:var(--tm);border-bottom:1px solid var(--border);white-space:nowrap;}
-td{padding:0.9rem 1rem;border-bottom:1px solid var(--border);font-size:0.8rem;vertical-align:middle;}
+th{background:var(--s2);padding:.7rem 1rem;text-align:left;font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--tm);border-bottom:1px solid var(--br);white-space:nowrap;}
+td{padding:.85rem 1rem;border-bottom:1px solid var(--br);font-size:.8rem;vertical-align:middle;}
 tr:last-child td{border-bottom:none;}
-tr:hover td{background:rgba(255,255,255,0.013);}
+tr:hover td{background:rgba(255,255,255,.012);}
 
 /* BADGES */
-.badge{display:inline-flex;align-items:center;padding:0.2rem 0.6rem;border-radius:2px;font-size:0.63rem;font-weight:600;letter-spacing:0.07em;}
-.bp{background:rgba(230,126,34,0.12);color:var(--warn);border:1px solid rgba(230,126,34,0.25);}
-.bc{background:rgba(39,174,96,0.1);color:var(--success);border:1px solid rgba(39,174,96,0.22);}
-.bx{background:rgba(192,57,43,0.1);color:var(--danger);border:1px solid rgba(192,57,43,0.22);}
-.bi{background:rgba(52,152,219,0.1);color:#3498db;border:1px solid rgba(52,152,219,0.22);}
-.bco{background:rgba(39,174,96,0.18);color:#27ae60;border:1px solid rgba(39,174,96,0.3);}
+.badge{display:inline-flex;align-items:center;padding:.2rem .6rem;border-radius:1px;font-size:.62rem;font-weight:600;letter-spacing:.06em;}
+.b-p{background:rgba(138,94,32,.15);color:#e0a040;border:1px solid rgba(138,94,32,.3);}
+.b-c{background:rgba(42,122,79,.12);color:#4ec97f;border:1px solid rgba(42,122,79,.25);}
+.b-x{background:rgba(168,50,50,.12);color:#e06060;border:1px solid rgba(168,50,50,.25);}
+.b-g{background:var(--gg);color:var(--gold);border:1px solid var(--gd);}
+.b-ok{background:rgba(42,122,79,.18);color:#4ec97f;border:1px solid rgba(42,122,79,.3);}
 
 /* STATS */
-.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;margin-bottom:2rem;}
-.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.4rem;transition:border-color 0.2s;}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:1rem;margin-bottom:2rem;}
+.sc{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:1.4rem;transition:border-color .2s;}
 .sc:hover{border-color:var(--gd);}
-.sl{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--tm);margin-bottom:0.45rem;}
-.sv{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--gold);}
-.ss{font-size:0.68rem;color:var(--tm);margin-top:0.2rem;}
-
-/* CHART */
-.chw{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.6rem;margin-bottom:2rem;}
-.cht{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--tm);margin-bottom:1.2rem;}
+.sl{font-size:.57rem;letter-spacing:.22em;text-transform:uppercase;color:var(--tm);margin-bottom:.45rem;}
+.sv{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--gold);}
+.chw{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:1.6rem;margin-bottom:2rem;}
+.cht{font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--tm);margin-bottom:1.2rem;}
 
 /* MODAL */
-.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);backdrop-filter:blur(6px);z-index:300;align-items:center;justify-content:center;padding:1rem;}
-.mo.open{display:flex;}
-.mod{background:var(--surface);border:1px solid var(--bl);border-radius:var(--r);padding:2.4rem;width:100%;max-width:520px;position:relative;animation:modalIn 0.22s ease;max-height:90vh;overflow-y:auto;}
-@keyframes modalIn{from{transform:translateY(10px) scale(0.97);opacity:0;}to{transform:translateY(0) scale(1);opacity:1;}}
-.mc{position:absolute;top:1.2rem;right:1.2rem;background:var(--surface2);border:1px solid var(--bl);color:var(--td);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:0.78rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);z-index:300;align-items:center;justify-content:center;padding:1rem;}
+.mo.op{display:flex;}
+.mod{background:var(--s1);border:1px solid var(--bl);border-radius:var(--r);padding:2.5rem;width:100%;max-width:520px;position:relative;animation:mi .22s ease;max-height:92vh;overflow-y:auto;}
+.mc{position:absolute;top:1.2rem;right:1.2rem;background:var(--s2);border:1px solid var(--bl);color:var(--td);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .mc:hover{border-color:var(--gold);color:var(--gold);}
-.mt{font-family:'Playfair Display',serif;font-size:1.35rem;margin-bottom:0.25rem;}
-.msub{font-size:0.76rem;color:var(--td);margin-bottom:1.6rem;}
+.mt{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;margin-bottom:.25rem;letter-spacing:.03em;}
+.msub{font-size:.76rem;color:var(--td);margin-bottom:1.6rem;}
 
 /* TABS */
-.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.6rem;overflow-x:auto;}
-.tb{padding:0.62rem 1.3rem;font-size:0.68rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;background:none;border:none;color:var(--tm);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:'Jost',sans-serif;transition:all 0.2s;white-space:nowrap;}
-.tb.active{color:var(--gold);border-bottom-color:var(--gold);}
-.tb:hover:not(.active){color:var(--td);}
+.tabs{display:flex;border-bottom:1px solid var(--br);margin-bottom:1.6rem;overflow-x:auto;}
+.tb{padding:.6rem 1.3rem;font-size:.65rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;background:none;border:none;color:var(--tm);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:'Jost',sans-serif;transition:all .2s;white-space:nowrap;}
+.tb.on{color:var(--gold);border-bottom-color:var(--gold);}
+.tb:hover:not(.on){color:var(--td);}
 
 /* AUTH */
-.authw{min-height:calc(100vh - var(--nh));display:flex;align-items:center;justify-content:center;padding:3rem 1rem;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(201,168,76,0.04) 0%,transparent 70%);}
-.authc{background:var(--surface);border:1px solid var(--bl);border-radius:var(--r);padding:2.8rem;width:100%;max-width:430px;}
-.auth-logo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--gold);text-align:center;margin-bottom:1.8rem;letter-spacing:0.05em;}
+.authw{min-height:calc(100vh - var(--nh));display:flex;align-items:center;justify-content:center;padding:3rem 1rem;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(201,168,76,.05) 0%,transparent 70%);}
+.authc{background:var(--s1);border:1px solid var(--bl);border-radius:var(--r);padding:2.8rem;width:100%;max-width:430px;}
 
-/* TOAST */
-#toasts{position:fixed;bottom:1.8rem;right:1.8rem;z-index:400;display:flex;flex-direction:column;gap:0.45rem;}
-.toast{display:flex;align-items:center;gap:0.7rem;padding:0.85rem 1.2rem;border-radius:var(--r);font-size:0.78rem;background:var(--surface);border:1px solid var(--bl);box-shadow:0 8px 24px rgba(0,0,0,0.6);animation:fu 0.28s ease;max-width:320px;}
-.toast.ok{border-left:3px solid var(--success);}
-.toast.err{border-left:3px solid var(--danger);}
-.toast.inf{border-left:3px solid var(--gold);}
-
-/* INFOBOX */
-.ib{background:var(--gg);border:1px solid var(--gd);border-radius:var(--r);padding:0.85rem 1.1rem;font-size:0.76rem;color:var(--td);margin-bottom:1.6rem;line-height:1.6;}
-
-/* PROFILE */
-.profile-grid{display:grid;grid-template-columns:260px 1fr;gap:1.5rem;align-items:start;}
-@media(max-width:800px){.profile-grid{grid-template-columns:1fr;}}
-.profile-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:2rem;text-align:center;}
-.profile-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;font-size:1.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Playfair Display',serif;}
-.profile-name{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:0.25rem;}
-.profile-email{font-size:0.75rem;color:var(--td);}
-.profile-stats{display:flex;gap:1rem;justify-content:center;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border);}
-.pstat{text-align:center;}
-.pstat-val{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);}
-.pstat-lbl{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--tm);}
-
-/* ADMIN BOOKING BANNER */
-.abb{background:linear-gradient(135deg,var(--surface2),var(--surface3));border:1px solid var(--gd);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1.4rem;display:flex;align-items:center;gap:1rem;font-size:0.8rem;color:var(--td);}
-
-/* BOOKING DETAIL MODAL */
-.bd-row{display:flex;justify-content:space-between;padding:0.55rem 0;border-bottom:1px solid var(--border);font-size:0.8rem;}
-.bd-row:last-child{border-bottom:none;}
-.bd-label{color:var(--tm);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;}
-.bd-val{text-align:right;font-weight:400;}
-
-/* CHECKIN/OUT STATUS */
-.ci-status{display:flex;gap:0.5rem;flex-wrap:wrap;}
-
-@media(max-width:900px){.hbg{display:flex;}.nav-desktop{display:none;}.drawer{display:flex;}}
-@media(max-width:640px){nav{padding:0 1.2rem;}.con{padding:1.8rem 1rem;}.ph{padding:2rem 1rem 1.5rem;}.authc{padding:2rem 1.4rem;}.mod{padding:1.6rem;}}
+/* MISC */
+.ib{background:var(--gg);border:1px solid var(--gd);border-radius:var(--r);padding:.85rem 1.1rem;font-size:.76rem;color:var(--td);line-height:1.65;}
+#toasts{position:fixed;bottom:1.8rem;right:1.8rem;z-index:400;display:flex;flex-direction:column;gap:.45rem;}
+.toast{display:flex;align-items:center;gap:.7rem;padding:.85rem 1.2rem;border-radius:var(--r);font-size:.78rem;background:var(--s1);border:1px solid var(--bl);box-shadow:0 8px 24px rgba(0,0,0,.7);animation:fu .28s ease;max-width:330px;}
+.toast.ok{border-left:3px solid #4ec97f;}.toast.er{border-left:3px solid #e06060;}.toast.in{border-left:3px solid var(--gold);}
+.pgrid{display:grid;grid-template-columns:250px 1fr;gap:1.5rem;align-items:start;}
+.pcard{background:var(--s1);border:1px solid var(--br);border-radius:var(--r);padding:2rem;text-align:center;}
+.pav{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#07070c;font-size:1.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Cormorant Garamond',serif;}
+.pname{font-family:'Cormorant Garamond',serif;font-size:1.15rem;margin-bottom:.2rem;}
+.pstats{display:flex;gap:1rem;justify-content:center;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--br);}
+.psv{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold);}
+.psl{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--tm);}
+.bdr{display:flex;justify-content:space-between;padding:.48rem 0;border-bottom:1px solid var(--br);font-size:.8rem;}
+.bdr:last-child{border-bottom:none;}
+.bdl{color:var(--tm);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;}
+@media(max-width:900px){.hbg{display:flex;}.nd{display:none;}.drw{display:flex;}}
+@media(max-width:720px){.pgrid{grid-template-columns:1fr;}.con{padding:1.8rem 1rem;}.ph{padding:2rem 1rem 1.5rem;}.mod{padding:1.6rem;}nav{padding:0 1.2rem;}.authc{padding:2rem 1.4rem;}}
 </style>
 </head>
 <body>
-
 <!-- NAV -->
 <nav id="mnav">
-  <div class="nav-logo" onclick="go('home')">
-    <span>🏨</span>
-    <div>Marciibel<div class="nav-logo-sub">Hotels Budapest</div></div>
+  <div class="logo" onclick="go('home')">
+    <div class="logo-emblem"><span>✦</span></div>
+    <div class="logo-text">
+      <div class="logo-main">Marciibel</div>
+      <div class="logo-sub">Hotels · Budapest</div>
+    </div>
   </div>
-  <div class="nav-desktop" id="navd">
+  <div class="nd" id="navd">
     <button class="nl" onclick="go('home')">Főoldal</button>
-    <button class="nl" onclick="go('rooms')">Szobák</button>
+    <button class="nl" onclick="go('types')">Szobatípusok</button>
     <button class="nl" onclick="go('calendar')">Naptár</button>
     <button class="nl" onclick="go('reviews')">Vélemények</button>
     <button class="nl" id="n-my" style="display:none" onclick="go('mybookings')">Foglalásaim</button>
     <button class="nl" id="n-prof" style="display:none" onclick="go('profile')">Profil</button>
-    <button class="nl gold-btn" id="n-adm" style="display:none" onclick="go('admin')">⚙ Admin</button>
-    <div class="nav-pill" id="n-user" style="display:none">
+    <button class="nl gb" id="n-adm" style="display:none" onclick="go('admin')">⚙ Admin</button>
+    <div class="npill" id="n-pill" style="display:none">
       <div class="nav-av" id="n-av">?</div>
-      <span id="n-em" style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
-      <button class="nl" style="padding:0.3rem 0.5rem;" onclick="logout()">Ki</button>
+      <span id="n-em" style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
+      <button class="nl" style="padding:.28rem .5rem;" onclick="logout()">Ki</button>
     </div>
     <button class="nl" id="n-auth" onclick="go('auth')">Bejelentkezés</button>
   </div>
-  <button class="hbg" id="hbg" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+  <button class="hbg" id="hbg" onclick="toggleDrw()"><span></span><span></span><span></span></button>
 </nav>
-
-<!-- DRAWER -->
-<div class="dov" id="dov" onclick="toggleDrawer()"></div>
-<div class="drawer" id="drw">
-  <button class="dl" onclick="go('home');toggleDrawer()">🏠 Főoldal</button>
-  <button class="dl" onclick="go('rooms');toggleDrawer()">🛏️ Szobák</button>
-  <button class="dl" onclick="go('calendar');toggleDrawer()">📅 Naptár</button>
-  <button class="dl" onclick="go('reviews');toggleDrawer()">⭐ Vélemények</button>
-  <button class="dl" id="d-my" style="display:none" onclick="go('mybookings');toggleDrawer()">📋 Foglalásaim</button>
-  <button class="dl" id="d-prof" style="display:none" onclick="go('profile');toggleDrawer()">👤 Profil</button>
-  <button class="dl" id="d-adm" style="display:none" onclick="go('admin');toggleDrawer()">⚙️ Admin</button>
-  <div style="border-top:1px solid var(--border);margin-top:auto;padding-top:1rem;">
-    <div id="d-uinfo" style="display:none;font-size:0.72rem;color:var(--td);padding:0.5rem 1rem;margin-bottom:0.4rem;"></div>
-    <button class="dl" id="d-auth" onclick="go('auth');toggleDrawer()">🔑 Bejelentkezés</button>
-    <button class="dl" id="d-out" style="display:none;color:var(--danger);" onclick="logout();toggleDrawer()">↩ Kilépés</button>
+<div class="dov" id="dov" onclick="toggleDrw()"></div>
+<div class="drw" id="drw">
+  <button class="dl" onclick="go('home');toggleDrw()">Főoldal</button>
+  <button class="dl" onclick="go('types');toggleDrw()">Szobatípusok</button>
+  <button class="dl" onclick="go('calendar');toggleDrw()">Naptár</button>
+  <button class="dl" onclick="go('reviews');toggleDrw()">Vélemények</button>
+  <button class="dl" id="d-my" style="display:none" onclick="go('mybookings');toggleDrw()">Foglalásaim</button>
+  <button class="dl" id="d-prof" style="display:none" onclick="go('profile');toggleDrw()">Profil</button>
+  <button class="dl" id="d-adm" style="display:none" onclick="go('admin');toggleDrw()">Admin</button>
+  <div style="margin-top:auto;border-top:1px solid var(--br);padding-top:1rem;">
+    <div id="d-info" style="display:none;font-size:.7rem;color:var(--td);padding:.5rem 1rem;"></div>
+    <button class="dl" id="d-auth" onclick="go('auth');toggleDrw()">Bejelentkezés</button>
+    <button class="dl" id="d-out" style="display:none;color:var(--red);" onclick="logout();toggleDrw()">Kilépés</button>
   </div>
 </div>
 
-<!-- ══ HOME ══ -->
-<div id="page-home" class="pflex active">
-  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;text-align:center;overflow:hidden;min-height:calc(100vh - var(--nh));">
-    <div class="hero-bg"></div><div class="hero-grid"></div>
-    <div style="position:relative;max-width:680px;padding:2rem;">
-      <div style="font-size:0.62rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem;animation:fu 0.8s ease both;">
-        <span style="flex:1;height:1px;background:var(--gd);"></span>Budapest prémium szállodája<span style="flex:1;height:1px;background:var(--gd);"></span>
+<!-- HOME -->
+<div id="page-home" class="pflex on">
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;min-height:calc(100vh - var(--nh));">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(201,168,76,.08) 0%,transparent 65%);"></div>
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);background-size:70px 70px;"></div>
+    <div style="position:absolute;top:2.5rem;left:2.5rem;width:48px;height:48px;border-top:1px solid var(--gd);border-left:1px solid var(--gd);"></div>
+    <div style="position:absolute;top:2.5rem;right:2.5rem;width:48px;height:48px;border-top:1px solid var(--gd);border-right:1px solid var(--gd);"></div>
+    <div style="position:absolute;bottom:2.5rem;left:2.5rem;width:48px;height:48px;border-bottom:1px solid var(--gd);border-left:1px solid var(--gd);"></div>
+    <div style="position:absolute;bottom:2.5rem;right:2.5rem;width:48px;height:48px;border-bottom:1px solid var(--gd);border-right:1px solid var(--gd);"></div>
+    <div style="position:relative;max-width:720px;padding:2.5rem;">
+      <div style="font-size:.52rem;letter-spacing:.6em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;animation:fu .8s ease both;display:flex;align-items:center;justify-content:center;gap:1.2rem;">
+        <span style="width:36px;height:1px;background:linear-gradient(90deg,transparent,var(--gd));"></span>Est. Budapest, Hungary<span style="width:36px;height:1px;background:linear-gradient(90deg,var(--gd),transparent);"></span>
       </div>
-      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.6rem,7vw,5.5rem);font-weight:700;line-height:1.05;margin-bottom:1.2rem;animation:fu 0.8s 0.1s ease both;">Marciibel<br><em style="color:var(--gold);">Hotels</em> Budapest</h1>
-      <p style="color:var(--td);font-size:0.88rem;line-height:1.8;max-width:460px;margin:0 auto 2.5rem;animation:fu 0.8s 0.2s ease both;">Foglaljon szobát egyszerűen és gyorsan. Prémium szobák, kiváló elhelyezkedés – fizetés érkezéskor, helyszínen.</p>
-      <div style="display:flex;gap:0.85rem;justify-content:center;flex-wrap:wrap;animation:fu 0.8s 0.3s ease both;">
-        <button class="btn bg blg" onclick="go('rooms')">Szobák megtekintése</button>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:.85rem;letter-spacing:.06em;margin-bottom:.4rem;animation:fu .8s .05s ease both;">The Art of</div>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,8vw,6.5rem);font-weight:600;line-height:1.0;letter-spacing:.05em;margin-bottom:.3rem;animation:fu .8s .1s ease both;">Marciibel</h1>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2.5vw,2rem);color:var(--td);letter-spacing:.3em;text-transform:uppercase;margin-bottom:2.2rem;animation:fu .8s .15s ease both;">Hotels · Budapest</div>
+      <p style="color:var(--td);font-size:.84rem;line-height:1.9;max-width:460px;margin:0 auto 3rem;animation:fu .8s .2s ease both;">Foglaljon szobát egyszerűen és gyorsan.<br>Prémium szobatípusok Budapest szívében – fizetés érkezéskor.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fu .8s .25s ease both;">
+        <button class="btn bg blg" onclick="go('types')">Szobatípusok</button>
         <button class="btn bo blg" onclick="go('calendar')">Naptár nézet</button>
       </div>
-      <div style="display:flex;gap:2.5rem;justify-content:center;margin-top:4.5rem;border-top:1px solid var(--border);padding-top:2.2rem;animation:fu 0.8s 0.4s ease both;flex-wrap:wrap;">
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--gold);font-weight:700;">4</div><div style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--tm);margin-top:0.25rem;">Prémium szoba</div></div>
-        <div style="width:1px;background:var(--border);"></div>
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--gold);font-weight:700;">★ 4.9</div><div style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--tm);margin-top:0.25rem;">Átlagos értékelés</div></div>
-        <div style="width:1px;background:var(--border);"></div>
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--gold);font-weight:700;">24/7</div><div style="font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--tm);margin-top:0.25rem;">Recepció</div></div>
+      <div style="display:flex;gap:3rem;justify-content:center;margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--br);animation:fu .8s .3s ease both;flex-wrap:wrap;gap:2rem;">
+        <div><div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);">IV</div><div style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--tm);margin-top:.2rem;">Szobatípus</div></div>
+        <div style="width:1px;background:var(--br);"></div>
+        <div><div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);">★ 4.9</div><div style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--tm);margin-top:.2rem;">Értékelés</div></div>
+        <div style="width:1px;background:var(--br);"></div>
+        <div><div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);">24/7</div><div style="font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--tm);margin-top:.2rem;">Recepció</div></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ ROOMS ══ -->
-<div id="page-rooms" class="page">
-  <div class="ph"><div class="pe">Szobák & Suites</div><h2 class="pt">Válasszon <em>szobát</em></h2><p class="ps">Kényelmes és elegáns szobáink közül minden igényt kielégít</p></div>
+<!-- TYPES -->
+<div id="page-types" class="page">
+  <div class="ph"><div class="pe">Szobatípusok & Suites</div><h2 class="pt">Válasszon <em>szobatípust</em></h2><p class="ps">Típust foglal – az admin konkrét szobát rendel hozzá</p></div>
   <div class="con" style="padding-top:0;">
-    <div class="rooms-toolbar">
-      <div class="sb"><input type="text" id="r-search" placeholder="Szoba keresése..." oninput="filterRooms()"></div>
-      <select class="fsel" id="r-sort" onchange="filterRooms()">
-        <option value="">Rendezés: alap</option>
-        <option value="pa">Ár: alacsony → magas</option>
-        <option value="pd">Ár: magas → alacsony</option>
-        <option value="cap">Kapacitás</option>
-      </select>
-      <select class="fsel" id="r-cap" onchange="filterRooms()">
-        <option value="">Minden kapacitás</option>
-        <option value="s">1–2 fő</option>
-        <option value="l">3+ fő</option>
-      </select>
+    <div class="toolbar">
+      <div class="sb"><input type="text" id="ts-q" placeholder="Keresés..." oninput="filterTypes()"></div>
+      <select class="fsel" id="ts-sort" onchange="filterTypes()"><option value="">Rendezés</option><option value="pa">Ár ↑</option><option value="pd">Ár ↓</option><option value="cap">Kapacitás</option></select>
     </div>
-    <div class="rg" id="rooms-grid"><div style="text-align:center;padding:3rem;color:var(--tm);">⏳ Betöltés...</div></div>
+    <div class="tgrid" id="types-grid"><div style="text-align:center;padding:4rem;color:var(--tm);">Betöltés...</div></div>
   </div>
 </div>
 
-<!-- ══ CALENDAR ══ -->
+<!-- CALENDAR -->
 <div id="page-calendar" class="page">
-  <div class="ph"><div class="pe">Foglaltság áttekintése</div><h2 class="pt">Naptár <em>nézet</em></h2><p class="ps">Kattintson egy napra a foglalások részleteiért</p></div>
-  <div class="con" style="padding-top:0;display:grid;grid-template-columns:1fr 340px;gap:1.5rem;align-items:start;">
+  <div class="ph"><div class="pe">Foglaltság</div><h2 class="pt">Naptár <em>nézet</em></h2><p class="ps">Kattintson egy napra a részletekért</p></div>
+  <div class="con" style="padding-top:0;display:grid;grid-template-columns:1fr 320px;gap:1.5rem;align-items:start;">
     <div class="calw">
       <div class="calh"><button class="calbtn" id="cal-p">‹</button><div class="cal-ml" id="cal-lbl"></div><button class="calbtn" id="cal-n">›</button></div>
       <div class="calg" id="cal-grid"></div>
       <div class="cal-leg">
-        <div class="li"><div class="ld" style="background:rgba(201,168,76,0.18);border:1px solid var(--gd);"></div>Részben foglalt</div>
-        <div class="li"><div class="ld" style="background:rgba(192,57,43,0.18);border:1px solid rgba(192,57,43,0.28);"></div>Tele</div>
+        <div class="li"><div class="ld" style="background:rgba(201,168,76,.2);border:1px solid var(--gd);"></div>Részben foglalt</div>
+        <div class="li"><div class="ld" style="background:rgba(168,50,50,.18);border:1px solid rgba(168,50,50,.3);"></div>Tele</div>
         <div class="li"><div class="ld" style="background:var(--gg);border:1px solid var(--gd);"></div>Ma</div>
       </div>
     </div>
-    <div class="card" style="padding:1.6rem;" id="cal-det"><p style="color:var(--tm);font-size:0.8rem;font-style:italic;">Kattintson egy napra...</p></div>
+    <div class="card" style="padding:1.6rem;" id="cal-det"><p style="color:var(--tm);font-size:.8rem;font-style:italic;">Kattintson egy napra...</p></div>
   </div>
 </div>
 
-<!-- ══ REVIEWS ══ -->
+<!-- REVIEWS -->
 <div id="page-reviews" class="page">
-  <div class="ph"><div class="pe">Vendégeink mondták</div><h2 class="pt">Véle<em>mények</em></h2><p class="ps">Ossza meg tapasztalatát</p></div>
+  <div class="ph"><div class="pe">Vendégeink mondták</div><h2 class="pt">Véle<em>mények</em></h2><p class="ps">Ossza meg tapasztalatát más vendégekkel</p></div>
   <div class="con" style="padding-top:0;">
-    <div style="display:flex;gap:1.5rem;align-items:start;flex-wrap:wrap;margin-bottom:2.5rem;">
-      <div class="card" style="padding:1.7rem;flex:1;min-width:270px;" id="rv-form-wrap">
-        <div style="font-size:0.62rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;">Vélemény írása</div>
+    <div style="display:grid;grid-template-columns:1fr 280px;gap:1.5rem;margin-bottom:2.5rem;align-items:start;">
+      <div class="card" style="padding:1.8rem;" id="rv-wrap">
+        <div class="pe" style="margin-bottom:1rem;">Vélemény írása</div>
         <div id="rv-inner">
-          <div class="fg" style="margin-bottom:1rem;"><label>Szoba</label><select id="rv-room"></select></div>
-          <div class="fg" style="margin-bottom:1rem;">
-            <label>Értékelés</label>
-            <div class="stars" id="rv-stars">
-              <span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span>
-            </div>
+          <div class="fg" style="margin-bottom:1rem;"><label>Szobatípus</label><select id="rv-type"></select></div>
+          <div class="fg" style="margin-bottom:1rem;"><label>Értékelés</label>
+            <div class="stars" id="rv-stars"><span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span></div>
           </div>
-          <div class="fg" style="margin-bottom:1.2rem;"><label>Szöveg *</label><textarea id="rv-txt" placeholder="Írja meg tapasztalatát..."></textarea></div>
-          <button class="btn bg blk" onclick="submitReview()">Vélemény elküldése</button>
+          <div class="fg" style="margin-bottom:1.2rem;"><label>Vélemény *</label><textarea id="rv-txt" placeholder="Írja meg tapasztalatát..."></textarea></div>
+          <button class="btn bg blk" onclick="submitReview()">Vélemény küldése</button>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:1rem;min-width:180px;">
-        <div class="card" style="padding:1.4rem;text-align:center;">
-          <div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--gold);" id="avg-r">–</div>
-          <div class="stars" style="justify-content:center;margin:0.45rem 0;" id="avg-stars"></div>
-          <div style="font-size:0.7rem;color:var(--tm);letter-spacing:0.08em;" id="rv-cnt">0 vélemény</div>
-        </div>
+      <div class="card" style="padding:1.6rem;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3.5rem;color:var(--gold);" id="avg-r">–</div>
+        <div class="stars" style="justify-content:center;margin:.5rem 0;" id="avg-stars"></div>
+        <div style="font-size:.7rem;color:var(--tm);letter-spacing:.08em;" id="rv-cnt">0 vélemény</div>
       </div>
     </div>
-    <div class="rvg" id="rv-grid"><div style="text-align:center;padding:3rem;color:var(--tm);">Betöltés...</div></div>
+    <div class="rvgrid" id="rv-grid"></div>
   </div>
 </div>
 
-<!-- ══ BOOKING ══ -->
+<!-- BOOKING -->
 <div id="page-booking" class="page">
-  <div class="ph"><div class="pe">Online foglalás</div><h2 class="pt">Szoba <em>foglalás</em></h2><p class="ps">Töltse ki az adatokat – fizetés érkezéskor</p></div>
+  <div class="ph"><div class="pe">Online foglalás</div><h2 class="pt">Szoba<em>foglalás</em></h2><p class="ps">Típust foglal – szobaszámot az admin rendeli hozzá automatikusan</p></div>
   <div class="con" style="padding-top:0;">
-    <div class="ib">💡 Az online fizetés nem szükséges. A számlát érkezéskor rendezi helyszínen.</div>
-    <div class="wsteps" id="wsteps">
-      <div class="ws active" data-s="1"><div class="wsn">1</div><div class="wsl">Szoba & Dátum</div></div>
-      <div class="ws" data-s="2"><div class="wsn">2</div><div class="wsl">Személyes adatok</div></div>
-      <div class="ws" data-s="3"><div class="wsn">3</div><div class="wsl">Összesítő</div></div>
+    <div class="ib" style="margin-bottom:1.5rem;">💡 Fizetés érkezéskor, helyszínen. Online előleg nem szükséges. A szobaszámot a rendszer automatikusan rendeli hozzá, az admin szükség esetén felülírhatja.</div>
+    <div class="wsteps">
+      <div class="wseg ac" id="ws1"><div class="wsn">1</div><div class="wsl">Típus & Dátum</div></div>
+      <div class="wline" id="wl1"></div>
+      <div class="wseg" id="ws2"><div class="wsn">2</div><div class="wsl">Adatok</div></div>
+      <div class="wline" id="wl2"></div>
+      <div class="wseg" id="ws3"><div class="wsn">3</div><div class="wsl">Összesítő</div></div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 310px;gap:1.5rem;align-items:start;">
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:start;">
       <div>
-        <!-- Step 1 -->
-        <div class="wp active" id="step-1">
+        <div class="wp ac" id="step-1">
           <div class="card" style="padding:1.7rem;">
-            <div style="font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--td);margin-bottom:1.2rem;">Szoba és időpont</div>
+            <div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--td);margin-bottom:1.2rem;">Szobatípus és időpont</div>
             <div style="display:flex;flex-direction:column;gap:1rem;">
-              <div class="fg"><label>Szoba *</label><select id="b-room" onchange="updateSum()"></select></div>
-              <div class="fr">
-                <div class="fg"><label>Érkezés *</label><input type="date" id="b-ci" onchange="updateSum()"></div>
-                <div class="fg"><label>Távozás *</label><input type="date" id="b-co" onchange="updateSum()"></div>
-              </div>
-              <div class="fr">
-                <div class="fg"><label>Felnőttek</label><select id="b-ad" onchange="updateSum()"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
-                <div class="fg"><label>Gyerekek</label><select id="b-ch" onchange="updateSum()"><option selected>0</option><option>1</option><option>2</option><option>3</option></select></div>
-              </div>
-            </div>
-            <br><button class="btn bg" onclick="wNext(1)">Tovább →</button>
+              <div class="fg"><label>Szobatípus *</label><select id="b-type" onchange="updateSum()"></select></div>
+              <div id="avail-info" style="display:none;" class="ib"></div>
+              <div class="fr"><div class="fg"><label>Érkezés *</label><input type="date" id="b-ci" onchange="checkAvail();updateSum()"></div><div class="fg"><label>Távozás *</label><input type="date" id="b-co" onchange="checkAvail();updateSum()"></div></div>
+              <div class="fr"><div class="fg"><label>Felnőttek</label><select id="b-ad" onchange="updateSum()"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div><div class="fg"><label>Gyerekek</label><select id="b-ch" onchange="updateSum()"><option selected>0</option><option>1</option><option>2</option><option>3</option></select></div></div>
+            </div><br>
+            <button class="btn bg" onclick="wNext(1)">Tovább →</button>
           </div>
         </div>
-        <!-- Step 2 -->
         <div class="wp" id="step-2">
           <div class="card" style="padding:1.7rem;">
-            <div style="font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--td);margin-bottom:1.2rem;">Személyes adatok</div>
-            <div id="adm-src-field" style="display:none;margin-bottom:1.2rem;">
-              <div class="abb"><span style="font-size:1.3rem;">📞</span><div><div style="font-weight:500;color:var(--text);font-size:0.8rem;margin-bottom:0.2rem;">Admin foglalás</div><div>Telefonhívás vagy személyes megjelenés alapján.</div></div></div>
-              <div class="fg"><label>Foglalás forrása</label><select id="b-src"><option value="phone">Telefonhívás</option><option value="walkin">Személyes megjelenés</option><option value="email_src">Email</option><option value="other">Egyéb</option></select></div><br>
+            <div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--td);margin-bottom:1.2rem;">Személyes adatok</div>
+            <div id="adm-banner" style="display:none;background:var(--gg);border:1px solid var(--gd);border-radius:var(--r);padding:1rem;margin-bottom:1.2rem;font-size:.78rem;color:var(--td);">
+              <strong style="color:var(--gold);">Admin foglalás</strong><br>
+              <div class="fg" style="margin-top:.8rem;"><label>Forrás</label><select id="b-src"><option value="phone">Telefonhívás</option><option value="walkin">Személyes</option><option value="email_src">Email</option><option value="other">Egyéb</option></select></div>
             </div>
             <div style="display:flex;flex-direction:column;gap:1rem;">
-              <div class="fr">
-                <div class="fg"><label>Keresztnév *</label><input type="text" id="b-fn" placeholder="Péter"></div>
-                <div class="fg"><label>Vezetéknév *</label><input type="text" id="b-ln" placeholder="Nagy"></div>
-              </div>
+              <div class="fr"><div class="fg"><label>Keresztnév *</label><input type="text" id="b-fn" placeholder="Péter"></div><div class="fg"><label>Vezetéknév *</label><input type="text" id="b-ln" placeholder="Nagy"></div></div>
               <div class="fg"><label>Email *</label><input type="email" id="b-em" placeholder="pelda@email.hu"></div>
-              <div class="fg"><label>Telefonszám</label><input type="tel" id="b-ph" placeholder="+36 30 123 4567"></div>
+              <div class="fg"><label>Telefon</label><input type="tel" id="b-ph" placeholder="+36 30 123 4567"></div>
               <div class="fg"><label>Megjegyzés</label><textarea id="b-nt" placeholder="Különleges kérések..."></textarea></div>
-            </div>
-            <br>
-            <div style="display:flex;gap:0.75rem;">
-              <button class="btn bgh" onclick="wPrev(2)">← Vissza</button>
-              <button class="btn bg" onclick="wNext(2)">Tovább →</button>
-            </div>
+            </div><br>
+            <div style="display:flex;gap:.75rem;"><button class="btn bgh" onclick="wPrev(2)">← Vissza</button><button class="btn bg" onclick="wNext(2)">Tovább →</button></div>
           </div>
         </div>
-        <!-- Step 3 -->
         <div class="wp" id="step-3">
           <div class="card" style="padding:1.7rem;">
-            <div style="font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--td);margin-bottom:1.2rem;">Foglalás megerősítése</div>
-            <div id="s3-sum" style="margin-bottom:1.5rem;"></div>
-            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-              <button class="btn bgh" onclick="wPrev(3)">← Vissza</button>
-              <button class="btn bg blg" onclick="submitBooking()">✓ Foglalás véglegesítése</button>
-            </div>
+            <div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--td);margin-bottom:1.2rem;">Foglalás megerősítése</div>
+            <div id="s3-c" style="margin-bottom:1.5rem;"></div>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap;"><button class="btn bgh" onclick="wPrev(3)">← Vissza</button><button class="btn bg blg" onclick="submitBooking()">✓ Foglalás véglegesítése</button></div>
           </div>
         </div>
       </div>
-      <div class="sumbox" id="sum-box">
-        <div class="sum-title">Összesítő</div>
-        <div id="sum-content"><p style="color:var(--tm);font-size:0.78rem;font-style:italic;">Válasszon szobát és dátumot</p></div>
-      </div>
+      <div class="sumbox"><div class="sum-t">Összesítő</div><div id="sum-c"><p style="color:var(--tm);font-size:.78rem;font-style:italic;">Válasszon típust és dátumot</p></div></div>
     </div>
   </div>
 </div>
 
-<!-- ══ MY BOOKINGS ══ -->
+<!-- MY BOOKINGS -->
 <div id="page-mybookings" class="page">
-  <div class="ph"><div class="pe">Saját foglalások</div><h2 class="pt">Foglalá<em>saim</em></h2><p class="ps">Aktív és korábbi foglalásai</p></div>
+  <div class="ph"><div class="pe">Saját foglalások</div><h2 class="pt">Foglalá<em>saim</em></h2></div>
   <div class="con" style="padding-top:0;">
-    <div class="card">
-      <div class="tw">
-        <table>
-          <thead><tr><th>Szoba</th><th>Érkezés</th><th>Távozás</th><th>Vendégek</th><th>Státusz</th><th>Összeg</th><th></th></tr></thead>
-          <tbody id="my-tb"><tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--tm);">Betöltés...</td></tr></tbody>
-        </table>
-      </div>
-    </div>
+    <div class="card"><div class="tw"><table>
+      <thead><tr><th>Típus</th><th>Szoba #</th><th>Érkezés</th><th>Távozás</th><th>Vendégek</th><th>Státusz</th><th>Összeg</th><th></th></tr></thead>
+      <tbody id="my-tb"><tr><td colspan="8" style="text-align:center;padding:3rem;color:var(--tm);">Betöltés...</td></tr></tbody>
+    </table></div></div>
   </div>
 </div>
 
-<!-- ══ PROFILE ══ -->
+<!-- PROFILE -->
 <div id="page-profile" class="page">
-  <div class="ph"><div class="pe">Fiók</div><h2 class="pt">Profil <em>oldal</em></h2><p class="ps">Személyes adatok és beállítások</p></div>
+  <div class="ph"><div class="pe">Fiók</div><h2 class="pt">Profil <em>oldal</em></h2></div>
   <div class="con" style="padding-top:0;">
-    <div class="profile-grid">
+    <div class="pgrid">
       <div>
-        <div class="profile-card" style="margin-bottom:1rem;">
-          <div class="profile-av" id="p-av">?</div>
-          <div class="profile-name" id="p-name">–</div>
-          <div class="profile-email" id="p-email">–</div>
-          <div class="profile-stats">
-            <div class="pstat"><div class="pstat-val" id="p-bcount">0</div><div class="pstat-lbl">Foglalás</div></div>
-            <div class="pstat"><div class="pstat-val" id="p-rcount">0</div><div class="pstat-lbl">Vélemény</div></div>
-          </div>
+        <div class="pcard" style="margin-bottom:1rem;">
+          <div class="pav" id="p-av">?</div>
+          <div class="pname" id="p-name">–</div>
+          <div style="font-size:.72rem;color:var(--td);" id="p-email">–</div>
+          <div class="pstats"><div><div class="psv" id="p-bc">0</div><div class="psl">Foglalás</div></div><div><div class="psv" id="p-rc">0</div><div class="psl">Vélemény</div></div></div>
         </div>
         <div class="card" style="padding:1.4rem;">
-          <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Jelszó módosítása</div>
-          <div class="fg" style="margin-bottom:0.85rem;"><label>Jelenlegi jelszó</label><input type="password" id="p-cur-pw" placeholder="••••••••"></div>
-          <div class="fg" style="margin-bottom:0.85rem;"><label>Új jelszó</label><input type="password" id="p-new-pw" placeholder="••••••••"></div>
-          <div class="fg" style="margin-bottom:1rem;"><label>Új jelszó mégegyszer</label><input type="password" id="p-new-pw2" placeholder="••••••••"></div>
-          <button class="btn bo" onclick="changePassword()">Jelszó módosítása</button>
+          <div class="pe" style="margin-bottom:1rem;">Jelszó módosítása</div>
+          <div class="fg" style="margin-bottom:.85rem;"><label>Jelenlegi jelszó</label><input type="password" id="p-cp" placeholder="••••••••"></div>
+          <div class="fg" style="margin-bottom:.85rem;"><label>Új jelszó</label><input type="password" id="p-np" placeholder="••••••••"></div>
+          <div class="fg" style="margin-bottom:1rem;"><label>Újra</label><input type="password" id="p-np2" placeholder="••••••••"></div>
+          <button class="btn bo" onclick="changePw()">Módosítás</button>
         </div>
       </div>
       <div>
-        <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Korábbi foglalásaim</div>
-        <div class="card">
-          <div class="tw"><table>
-            <thead><tr><th>Szoba</th><th>Érkezés</th><th>Távozás</th><th>Státusz</th><th>Összeg</th></tr></thead>
-            <tbody id="p-tb"><tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--tm);">Betöltés...</td></tr></tbody>
-          </table></div>
-        </div>
+        <div class="pe" style="margin-bottom:1rem;">Foglalásaim</div>
+        <div class="card"><div class="tw"><table>
+          <thead><tr><th>Típus</th><th>Szoba #</th><th>Érkezés</th><th>Távozás</th><th>Státusz</th><th>Összeg</th></tr></thead>
+          <tbody id="p-tb"></tbody>
+        </table></div></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ AUTH ══ -->
+<!-- AUTH -->
 <div id="page-auth" class="page">
   <div class="authw">
     <div class="authc">
-      <div class="auth-logo">🏨 Marciibel Hotels Budapest</div>
+      <div style="text-align:center;margin-bottom:2rem;">
+        <div style="font-size:1.6rem;color:var(--gold);margin-bottom:.6rem;">✦</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);letter-spacing:.1em;">Marciibel Hotels</div>
+        <div style="font-size:.5rem;letter-spacing:.4em;text-transform:uppercase;color:var(--td);margin-top:.3rem;">Budapest</div>
+      </div>
       <div class="tabs">
-        <button class="tb active" onclick="authTab('login')">Bejelentkezés</button>
-        <button class="tb" onclick="authTab('register')">Regisztráció</button>
+        <button class="tb on" onclick="authTab('li')">Bejelentkezés</button>
+        <button class="tb" onclick="authTab('reg')">Regisztráció</button>
       </div>
       <div id="auth-li">
-        <div class="fg" style="margin-bottom:0.9rem;"><label>Email</label><input type="email" id="l-em" placeholder="email@example.com"></div>
+        <div class="fg" style="margin-bottom:.9rem;"><label>Email</label><input type="email" id="l-em" placeholder="email@example.com"></div>
         <div class="fg" style="margin-bottom:1.4rem;"><label>Jelszó</label><input type="password" id="l-pw" placeholder="••••••••"></div>
         <button class="btn bg blk" onclick="doLogin()">Bejelentkezés</button>
       </div>
       <div id="auth-reg" style="display:none;">
-        <div class="fr" style="margin-bottom:0.9rem;">
-          <div class="fg"><label>Keresztnév</label><input type="text" id="r-fn"></div>
-          <div class="fg"><label>Vezetéknév</label><input type="text" id="r-ln"></div>
-        </div>
-        <div class="fg" style="margin-bottom:0.9rem;"><label>Email</label><input type="email" id="r-em"></div>
-        <div class="fg" style="margin-bottom:1.4rem;"><label>Jelszó (min. 6 karakter)</label><input type="password" id="r-pw"></div>
-        <button class="btn bg blk" onclick="doRegister()">Regisztráció</button>
+        <div class="fr" style="margin-bottom:.9rem;"><div class="fg"><label>Keresztnév</label><input type="text" id="r-fn"></div><div class="fg"><label>Vezetéknév</label><input type="text" id="r-ln"></div></div>
+        <div class="fg" style="margin-bottom:.9rem;"><label>Email</label><input type="email" id="r-em"></div>
+        <div class="fg" style="margin-bottom:1.4rem;"><label>Jelszó</label><input type="password" id="r-pw"></div>
+        <button class="btn bg blk" onclick="doReg()">Regisztráció</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ ADMIN ══ -->
+<!-- ADMIN -->
 <div id="page-admin" class="page">
-  <div class="ph"><div class="pe">Vezérlőpult</div><h2 class="pt">Admin <em>felület</em></h2><p class="ps">Foglalások, szobák és vélemények kezelése</p></div>
+  <div class="ph"><div class="pe">Vezérlőpult</div><h2 class="pt">Admin <em>felület</em></h2></div>
   <div class="con" style="padding-top:0;">
     <div class="sg">
       <div class="sc"><div class="sl">Összes foglalás</div><div class="sv" id="st-tot">–</div></div>
       <div class="sc"><div class="sl">Függőben</div><div class="sv" id="st-pen">–</div></div>
       <div class="sc"><div class="sl">Visszaigazolt</div><div class="sv" id="st-con">–</div></div>
       <div class="sc"><div class="sl">Check-in ma</div><div class="sv" id="st-ci">–</div></div>
-      <div class="sc"><div class="sl">Bevétel (visszaig.)</div><div class="sv" id="st-rev">–</div></div>
+      <div class="sc"><div class="sl">Bevétel</div><div class="sv" id="st-rev">–</div></div>
     </div>
-    <div class="chw"><div class="cht">Foglalások az elmúlt 7 napban</div><canvas id="bk-chart" height="80"></canvas></div>
+    <div class="chw"><div class="cht">Foglalások – elmúlt 7 nap</div><canvas id="bk-chart" height="80"></canvas></div>
     <div class="tabs">
-      <button class="tb active" onclick="aTab('bk')">Foglalások</button>
+      <button class="tb on" onclick="aTab('bk')">Foglalások</button>
       <button class="tb" onclick="aTab('abk')">Admin foglalás</button>
+      <button class="tb" onclick="aTab('typ')">Típusok</button>
       <button class="tb" onclick="aTab('rm')">Szobák</button>
       <button class="tb" onclick="aTab('rv')">Vélemények</button>
     </div>
 
-    <!-- Bookings -->
     <div id="at-bk">
-      <div style="display:flex;gap:0.85rem;margin-bottom:1.2rem;flex-wrap:wrap;align-items:center;">
-        <select class="fsel" id="a-filter" onchange="loadAdminBk()">
-          <option value="">Minden státusz</option><option value="pending">Függőben</option><option value="confirmed">Visszaigazolt</option><option value="cancelled">Lemondva</option>
-        </select>
+      <div style="display:flex;gap:.85rem;margin-bottom:1.2rem;">
+        <select class="fsel" id="a-flt" onchange="loadAdminBk()"><option value="">Minden státusz</option><option value="pending">Függőben</option><option value="confirmed">Visszaigazolt</option><option value="cancelled">Lemondva</option></select>
       </div>
       <div class="card"><div class="tw"><table>
-        <thead><tr><th>Vendég</th><th>Szoba</th><th>Érkezés</th><th>Távozás</th><th>Vendégek</th><th>Forrás</th><th>Check-in</th><th>Státusz</th><th>Összeg</th><th>Műveletek</th></tr></thead>
-        <tbody id="a-tb"></tbody>
+        <thead><tr><th>Vendég</th><th>Típus</th><th>Szoba #</th><th>Érkezés</th><th>Távozás</th><th>Vendégek</th><th>Forrás</th><th>Check-in/out</th><th>Státusz</th><th>Összeg</th><th>Műveletek</th></tr></thead>
+        <tbody id="a-bk-tb"><tr><td colspan="11" style="text-align:center;padding:3rem;color:var(--tm);">Betöltés...</td></tr></tbody>
       </table></div></div>
     </div>
 
-    <!-- Admin booking -->
     <div id="at-abk" style="display:none;">
-      <div class="abb"><span style="font-size:1.5rem;">📞</span><div><div style="font-weight:500;color:var(--text);font-size:0.88rem;margin-bottom:0.2rem;">Foglalás rögzítése vendég nevében</div><div>Telefonhívás, email vagy személyes megjelenés alapján.</div></div></div>
-      <div class="card" style="padding:2rem;max-width:700px;">
+      <div style="background:var(--gg);border:1px solid var(--gd);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1.5rem;display:flex;gap:1rem;align-items:center;font-size:.8rem;color:var(--td);">
+        <span style="font-size:1.4rem;">📞</span>
+        <div><strong style="color:var(--tx);display:block;margin-bottom:.2rem;">Foglalás rögzítése vendég nevében</strong>Telefonhívás, email vagy személyes megjelenés alapján.</div>
+      </div>
+      <div class="card" style="padding:2rem;max-width:660px;">
         <div style="display:flex;flex-direction:column;gap:1rem;">
-          <div class="fr">
-            <div class="fg"><label>Szoba *</label><select id="ab-rm" onchange="updateAbSum()"></select></div>
-            <div class="fg"><label>Foglalás forrása</label><select id="ab-src"><option value="phone">Telefonhívás</option><option value="walkin">Személyes</option><option value="email_src">Email</option><option value="other">Egyéb</option></select></div>
-          </div>
-          <div class="fr">
-            <div class="fg"><label>Érkezés *</label><input type="date" id="ab-ci" onchange="updateAbSum()"></div>
-            <div class="fg"><label>Távozás *</label><input type="date" id="ab-co" onchange="updateAbSum()"></div>
-          </div>
-          <div class="fr">
-            <div class="fg"><label>Felnőttek</label><select id="ab-ad"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
-            <div class="fg"><label>Gyerekek</label><select id="ab-ch"><option selected>0</option><option>1</option><option>2</option><option>3</option></select></div>
-          </div>
-          <div class="fr">
-            <div class="fg"><label>Keresztnév *</label><input type="text" id="ab-fn" placeholder="Péter"></div>
-            <div class="fg"><label>Vezetéknév *</label><input type="text" id="ab-ln" placeholder="Nagy"></div>
-          </div>
-          <div class="fg"><label>Email *</label><input type="email" id="ab-em" placeholder="pelda@email.hu"></div>
-          <div class="fg"><label>Telefonszám</label><input type="tel" id="ab-ph" placeholder="+36 30 123 4567"></div>
+          <div class="fr"><div class="fg"><label>Szobatípus *</label><select id="ab-type" onchange="updateAbSum()"></select></div><div class="fg"><label>Forrás</label><select id="ab-src"><option value="phone">Telefonhívás</option><option value="walkin">Személyes</option><option value="email_src">Email</option><option value="other">Egyéb</option></select></div></div>
+          <div class="fr"><div class="fg"><label>Érkezés *</label><input type="date" id="ab-ci" onchange="updateAbSum()"></div><div class="fg"><label>Távozás *</label><input type="date" id="ab-co" onchange="updateAbSum()"></div></div>
+          <div class="fr"><div class="fg"><label>Felnőttek</label><select id="ab-ad"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div><div class="fg"><label>Gyerekek</label><select id="ab-ch"><option selected>0</option><option>1</option><option>2</option><option>3</option></select></div></div>
+          <div class="fr"><div class="fg"><label>Keresztnév *</label><input type="text" id="ab-fn"></div><div class="fg"><label>Vezetéknév *</label><input type="text" id="ab-ln"></div></div>
+          <div class="fg"><label>Email *</label><input type="email" id="ab-em"></div>
+          <div class="fg"><label>Telefon</label><input type="tel" id="ab-ph"></div>
           <div class="fg"><label>Megjegyzés</label><textarea id="ab-nt"></textarea></div>
-          <div id="ab-sum" style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:1rem;font-size:0.8rem;color:var(--td);">Válasszon szobát és dátumot</div>
+          <div id="ab-sum" style="background:var(--s2);border:1px solid var(--br);border-radius:var(--r);padding:1rem;font-size:.8rem;color:var(--td);">Válasszon típust és dátumot</div>
         </div>
         <br><button class="btn bg" onclick="submitAdminBk()">✓ Foglalás rögzítése</button>
       </div>
     </div>
 
-    <!-- Rooms -->
-    <div id="at-rm" style="display:none;">
-      <div style="margin-bottom:1.4rem;"><button class="btn bo bsm" onclick="openModal('m-addroom')">+ Új szoba</button></div>
-      <div class="rg" id="a-rg"></div>
+    <div id="at-typ" style="display:none;">
+      <div style="margin-bottom:1.4rem;"><button class="btn bo bsm" onclick="openTypeForm()">+ Új szobatípus</button></div>
+      <div class="tgrid" id="a-typ-grid"></div>
     </div>
 
-    <!-- Reviews -->
+    <div id="at-rm" style="display:none;">
+      <div style="margin-bottom:1.4rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;">
+        <button class="btn bo bsm" onclick="openRoomForm()">+ Új szoba</button>
+        <select class="fsel" id="a-rm-flt" onchange="loadAdminRooms()"><option value="">Minden típus</option></select>
+      </div>
+      <div class="card"><div class="tw"><table>
+        <thead><tr><th>Szobaszám</th><th>Típus</th><th>Emelet</th><th>Státusz</th><th>Megjegyzés</th><th>Műveletek</th></tr></thead>
+        <tbody id="a-rm-tb"></tbody>
+      </table></div></div>
+    </div>
+
     <div id="at-rv" style="display:none;">
       <div class="card"><div class="tw"><table>
-        <thead><tr><th>Vendég</th><th>Szoba</th><th>Értékelés</th><th>Szöveg</th><th>Dátum</th><th></th></tr></thead>
+        <thead><tr><th>Vendég</th><th>Típus</th><th>Értékelés</th><th>Szöveg</th><th>Dátum</th><th></th></tr></thead>
         <tbody id="a-rv-tb"></tbody>
       </table></div></div>
     </div>
   </div>
 </div>
 
-<!-- TOASTS -->
 <div id="toasts"></div>
 
-<!-- MODAL: Room detail -->
-<div class="mo" id="m-room"><div class="mod" style="max-width:560px;"><button class="mc" onclick="closeModal('m-room')">✕</button><div id="m-room-c"></div></div></div>
+<!-- MODALS -->
+<div class="mo" id="m-type"><div class="mod" style="max-width:540px;"><button class="mc" onclick="closeM('m-type')">✕</button><div id="m-type-c"></div></div></div>
 
-<!-- MODAL: Add room -->
-<div class="mo" id="m-addroom">
-  <div class="mod">
-    <button class="mc" onclick="closeModal('m-addroom')">✕</button>
-    <div class="mt" id="addroom-title">Új szoba</div><div class="msub">Szoba adatainak megadása</div>
-    <div style="display:flex;flex-direction:column;gap:0.9rem;">
-      <div class="fg"><label>Szoba neve *</label><input type="text" id="nr-name" placeholder="pl. Deluxe Suite"></div>
-      <div class="fg"><label>Leírás</label><textarea id="nr-desc"></textarea></div>
-      <div class="fr">
-        <div class="fg"><label>Ár / éjszaka (Ft) *</label><input type="number" id="nr-price" placeholder="35000"></div>
-        <div class="fg"><label>Max. vendég</label><input type="number" id="nr-cap" value="2"></div>
-      </div>
-      <div class="fr">
-        <div class="fg"><label>Emoji ikon</label><input type="text" id="nr-emoji" value="🛏️"></div>
-        <div class="fg"><label>Szoba kód</label><input type="text" id="nr-code" placeholder="101"></div>
-      </div>
-      <div class="fg"><label>Kiemelt?</label><select id="nr-feat"><option value="0">Nem</option><option value="1">Igen</option></select></div>
-      <div class="fg"><label>Felszereltség (vesszővel)</label><input type="text" id="nr-am" placeholder="WiFi, TV, Klíma"></div>
+<div class="mo" id="m-type-form">
+  <div class="mod"><button class="mc" onclick="closeM('m-type-form')">✕</button>
+    <div class="mt" id="tf-title">Új szobatípus</div><div class="msub">A típus jellemzői (pl. Deluxe, Standard)</div>
+    <div style="display:flex;flex-direction:column;gap:.9rem;">
+      <div class="fg"><label>Típus neve *</label><input type="text" id="tf-name" placeholder="pl. Deluxe Suite"></div>
+      <div class="fg"><label>Leírás</label><textarea id="tf-desc"></textarea></div>
+      <div class="fr"><div class="fg"><label>Ár / éjszaka (Ft) *</label><input type="number" id="tf-price"></div><div class="fg"><label>Max. vendég</label><input type="number" id="tf-cap" value="2"></div></div>
+      <div class="fr"><div class="fg"><label>Emoji</label><input type="text" id="tf-emoji" value="🛏️"></div><div class="fg"><label>Kiemelt?</label><select id="tf-feat"><option value="0">Nem</option><option value="1">Igen</option></select></div></div>
+      <div class="fg"><label>Felszereltség (vesszővel)</label><input type="text" id="tf-am" placeholder="WiFi, TV, Klíma"></div>
     </div>
-    <br><button class="btn bg blk" id="saveroom-btn" onclick="saveRoom()">Szoba mentése</button>
-    <input type="hidden" id="nr-edit-id">
+    <br><button class="btn bg blk" onclick="saveType()">Mentés</button>
+    <input type="hidden" id="tf-id">
   </div>
 </div>
 
-<!-- MODAL: Booking detail -->
-<div class="mo" id="m-bkdet">
-  <div class="mod" style="max-width:560px;">
-    <button class="mc" onclick="closeModal('m-bkdet')">✕</button>
-    <div id="m-bkdet-c"></div>
+<div class="mo" id="m-room-form">
+  <div class="mod"><button class="mc" onclick="closeM('m-room-form')">✕</button>
+    <div class="mt" id="rf-title">Új szoba</div><div class="msub">Konkrét fizikai szoba hozzáadása</div>
+    <div style="display:flex;flex-direction:column;gap:.9rem;">
+      <div class="fg"><label>Szobaszám *</label><input type="text" id="rf-num" placeholder="pl. 101"></div>
+      <div class="fg"><label>Szobatípus *</label><select id="rf-type"></select></div>
+      <div class="fg"><label>Emelet</label><input type="text" id="rf-floor" placeholder="pl. 1. emelet"></div>
+      <div class="fg"><label>Státusz</label><select id="rf-status"><option value="active">Aktív</option><option value="maintenance">Karbantartás</option><option value="inactive">Inaktív</option></select></div>
+      <div class="fg"><label>Megjegyzés (admin)</label><textarea id="rf-note"></textarea></div>
+    </div>
+    <br><button class="btn bg blk" onclick="saveRoom()">Mentés</button>
+    <input type="hidden" id="rf-id">
   </div>
 </div>
 
+<div class="mo" id="m-assign">
+  <div class="mod"><button class="mc" onclick="closeM('m-assign')">✕</button>
+    <div class="mt">Szoba hozzárendelése</div>
+    <div class="msub" id="m-assign-sub"></div>
+    <div class="fg" style="margin-bottom:1.2rem;"><label>Szoba kiválasztása</label><select id="assign-sel"></select></div>
+    <button class="btn bg blk" onclick="doAssign()">Hozzárendelés</button>
+    <input type="hidden" id="assign-bk-id">
+  </div>
+</div>
+
+<div class="mo" id="m-bkdet"><div class="mod" style="max-width:520px;"><button class="mc" onclick="closeM('m-bkdet')">✕</button><div id="m-bkdet-c"></div></div></div>
 <script>
-// ══════════════════════════════
-// CONFIG
-// ══════════════════════════════
-const EJS = 'marciibelhotels', EJT = 'foglalas_budapest', EJK = 'AbatrWN5NbbsWfMsM';
+const EJS='marciibelhotels',EJT='foglalas_budapest',EJK='AbatrWN5NbbsWfMsM';
+let CU=null,isAdmin=false,roomTypes=[],physRooms=[],allBk=[];
+let calY=new Date().getFullYear(),calM=new Date().getMonth();
+let wStep=1,rvRating=0,bkChart=null;
 
-// ══════════════════════════════
-// STATE
-// ══════════════════════════════
-let CU = null, isAdmin = false;
-let rooms = [], allBk = [];
-let calY = new Date().getFullYear(), calM = new Date().getMonth();
-let wStep = 1, rvRating = 0;
-let bkChart = null;
-
-// ══════════════════════════════
-// INIT
-// ══════════════════════════════
-window.addEventListener('firebaseReady', async () => {
+// ── INIT ──
+window.addEventListener('fbReady',async()=>{
   emailjs.init(EJK);
-  const { auth, onAuthStateChanged } = window._fb;
-
-  window.addEventListener('scroll', () => document.getElementById('mnav').classList.toggle('scrolled', scrollY > 20));
-
-  onAuthStateChanged(auth, async user => {
-    CU = user;
-    if (user) {
-      const { db, doc, getDoc } = window._fb;
-      const snap = await getDoc(doc(db, 'users', user.uid));
-      isAdmin = snap.exists() && snap.data().role === 'admin';
-
-      ['n-my','n-prof'].forEach(id => { const e=document.getElementById(id); if(e) e.style.display=''; });
-      ['d-my','d-prof'].forEach(id => { const e=document.getElementById(id); if(e) e.style.display=''; });
-      const na=document.getElementById('n-adm'), da=document.getElementById('d-adm');
-      if(na) na.style.display = isAdmin?'':'none';
-      if(da) da.style.display = isAdmin?'':'none';
-
-      document.getElementById('n-auth').style.display='none';
-      document.getElementById('n-user').style.display='flex';
-      document.getElementById('n-av').textContent = user.email[0].toUpperCase();
-      document.getElementById('n-em').textContent = user.email;
-      document.getElementById('d-auth').style.display='none';
-      document.getElementById('d-out').style.display='';
-      const dui=document.getElementById('d-uinfo'); if(dui){dui.style.display='';dui.textContent=user.email;}
-
-      if (document.getElementById('page-auth').classList.contains('active')) go('rooms');
-    } else {
+  const{auth,onAuthStateChanged}=window._fb;
+  window.addEventListener('scroll',()=>document.getElementById('mnav').classList.toggle('sc',scrollY>20));
+  onAuthStateChanged(auth,async user=>{
+    CU=user;
+    if(user){
+      const{db,doc,getDoc}=window._fb;
+      const snap=await getDoc(doc(db,'users',user.uid));
+      isAdmin=snap.exists()&&snap.data().role==='admin';
+      show('n-pill');hide('n-auth');
+      document.getElementById('n-av').textContent=user.email[0].toUpperCase();
+      document.getElementById('n-em').textContent=user.email;
+      show('n-my');show('n-prof');
+      document.getElementById('n-adm').style.display=isAdmin?'':'none';
+      show('d-my');show('d-prof');
+      document.getElementById('d-adm').style.display=isAdmin?'':'none';
+      hide('d-auth');show('d-out');
+      const di=document.getElementById('d-info');di.style.display='';di.textContent=user.email;
+      if(document.getElementById('page-auth').classList.contains('on'))go('types');
+      if(document.getElementById('page-reviews').classList.contains('on'))loadReviews();
+    }else{
       isAdmin=false;
-      ['n-my','n-prof','n-adm','n-user'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
-      ['d-my','d-prof','d-adm','d-out'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
-      document.getElementById('n-auth').style.display='';
-      document.getElementById('d-auth').style.display='';
-      const dui=document.getElementById('d-uinfo'); if(dui) dui.style.display='none';
+      hide('n-pill');show('n-auth');
+      ['n-my','n-prof','n-adm','d-my','d-prof','d-adm','d-out'].forEach(hide);
+      show('d-auth');
+      document.getElementById('d-info').style.display='none';
     }
   });
-
-  await fetchRooms();
+  await fetchAll();
   initRvStars();
-  go('home');
 });
 
-// ══════════════════════════════
-// NAV
-// ══════════════════════════════
-function toggleDrawer() {
-  const d=document.getElementById('drw'),o=document.getElementById('dov'),h=document.getElementById('hbg');
-  const op=d.classList.toggle('open'); o.classList.toggle('open',op); h.classList.toggle('open',op);
+function show(id){const e=document.getElementById(id);if(e)e.style.display='';}
+function hide(id){const e=document.getElementById(id);if(e)e.style.display='none';}
+
+// ── DATA ──
+async function fetchAll(){
+  const{db,collection,getDocs}=window._fb;
+  const[ts,rs]=await Promise.all([getDocs(collection(db,'roomTypes')),getDocs(collection(db,'rooms'))]);
+  roomTypes=ts.docs.map(d=>({id:d.id,...d.data()}));
+  physRooms=rs.docs.map(d=>({id:d.id,...d.data()}));
+  if(!roomTypes.length){await seedData();await fetchAll();}
 }
 
-function go(name) {
-  document.querySelectorAll('.page,.pflex').forEach(p=>{p.classList.remove('active');p.style.display='none';});
-  const pg=document.getElementById('page-'+name);
-  if(!pg) return;
-  pg.style.display = pg.classList.contains('pflex')?'flex':'block';
-  pg.classList.add('active');
-  window.scrollTo(0,0);
-  if(name==='rooms') renderRooms();
-  if(name==='calendar') renderCal();
-  if(name==='mybookings') loadMyBk();
-  if(name==='booking') initBookForm();
-  if(name==='reviews') loadReviews();
-  if(name==='admin') { loadAdminBk(); loadAdminRooms(); loadAdminRv(); }
-  if(name==='profile') loadProfile();
-}
-
-// ══════════════════════════════
-// ROOMS
-// ══════════════════════════════
-async function fetchRooms() {
-  const {db,collection,getDocs}=window._fb;
-  const snap=await getDocs(collection(db,'rooms'));
-  rooms=snap.docs.map(d=>({id:d.id,...d.data()}));
-  if(!rooms.length){await seedRooms();const s2=await getDocs(collection(db,'rooms'));rooms=s2.docs.map(d=>({id:d.id,...d.data()}));}
-}
-
-async function seedRooms() {
-  const {db,collection,addDoc}=window._fb;
-  const defs=[
-    {name:'Standard Szoba',desc:'Kényelmes standard szoba rövid tartózkodásra. Közvetlen utcai kilátás.',price:18000,capacity:2,emoji:'🛏️',code:'101',featured:false,amenities:['WiFi','TV','Klíma','Fürdőszoba']},
-    {name:'Deluxe Szoba',desc:'Tágas prémium szoba panorámás ablakkal és prémium felszereltséggel.',price:28000,capacity:2,emoji:'🌅',code:'201',featured:true,amenities:['WiFi','Smart TV','Klíma','Minibar','Safe']},
-    {name:'Junior Suite',desc:'Különálló nappalival és hálószobával rendelkező suite, jakuzzival.',price:45000,capacity:3,emoji:'🏡',code:'301',featured:true,amenities:['WiFi','Smart TV','Klíma','Minibar','Jakuzzi','Nappali']},
-    {name:'Penthouse Suite',desc:'Tetőterasz szoba lenyűgöző panorámával. Butler, bar, jacuzzi.',price:75000,capacity:4,emoji:'✨',code:'401',featured:true,amenities:['WiFi','4K TV','Klíma','Privát bár','Jakuzzi','Butler','Terasz']},
+async function seedData(){
+  const{db,collection,addDoc}=window._fb;
+  const types=[
+    {name:'Standard Szoba',desc:'Kényelmes standard szoba rövid tartózkodásra, közvetlen utcai kilátással.',price:18000,capacity:2,emoji:'🛏️',featured:false,amenities:['WiFi','TV','Klíma','Fürdőszoba']},
+    {name:'Deluxe Szoba',desc:'Tágas prémium szoba panorámás ablakkal, minibarral és prémium felszereltséggel.',price:28000,capacity:2,emoji:'🌅',featured:true,amenities:['WiFi','Smart TV','Klíma','Minibar','Safe']},
+    {name:'Junior Suite',desc:'Különálló nappalival és hálóval rendelkező suite, jakuzzival és exkluzív felszereltséggel.',price:45000,capacity:3,emoji:'🏡',featured:true,amenities:['WiFi','Smart TV','Klíma','Minibar','Jakuzzi','Nappali']},
+    {name:'Penthouse Suite',desc:'Tetőterasz szoba lenyűgöző panorámával, butler szolgálattal és privát jacuzzival.',price:75000,capacity:4,emoji:'✨',featured:true,amenities:['WiFi','4K TV','Klíma','Privát bár','Jakuzzi','Butler','Terasz']},
   ];
-  for(const r of defs) await addDoc(collection(db,'rooms'),r);
+  const ids=[];
+  for(const t of types){const r=await addDoc(collection(db,'roomTypes'),t);ids.push(r.id);}
+  const nums=[['101','102'],['201','202'],['301'],['401']];
+  for(let i=0;i<ids.length;i++){
+    for(const n of nums[i]){
+      await addDoc(collection(db,'rooms'),{number:n,typeId:ids[i],typeName:types[i].name,floor:n[0]+'. emelet',status:'active',note:''});
+    }
+  }
 }
 
-function filterRooms(){renderRooms();}
+// ── NAVIGATION ──
+function go(name){
+  document.querySelectorAll('.page,.pflex').forEach(p=>{p.classList.remove('on');p.style.display='none';});
+  const pg=document.getElementById('page-'+name);if(!pg)return;
+  pg.style.display=pg.classList.contains('pflex')?'flex':'block';
+  pg.classList.add('on');
+  window.scrollTo(0,0);
+  if(name==='types')renderTypes();
+  if(name==='calendar')renderCal();
+  if(name==='reviews')loadReviews();
+  if(name==='mybookings')loadMyBk();
+  if(name==='booking')initBookForm();
+  if(name==='profile')loadProfile();
+  if(name==='admin'){loadAdminBk();loadAdminTypes();loadAdminRooms();loadAdminRv();}
+}
+function toggleDrw(){
+  const d=document.getElementById('drw'),o=document.getElementById('dov'),h=document.getElementById('hbg');
+  const op=d.classList.toggle('op');o.classList.toggle('op',op);h.classList.toggle('op',op);
+}
 
-function renderRooms() {
-  const q=(document.getElementById('r-search')?.value||'').toLowerCase();
-  const sort=document.getElementById('r-sort')?.value||'';
-  const cap=document.getElementById('r-cap')?.value||'';
-  let list=[...rooms].filter(r=>{
-    const mq=!q||r.name.toLowerCase().includes(q)||r.desc.toLowerCase().includes(q)||(r.amenities||[]).some(a=>a.toLowerCase().includes(q));
-    const mc=!cap||(cap==='s'?(r.capacity||2)<=2:(r.capacity||2)>=3);
-    return mq&&mc;
-  });
-  if(sort==='pa') list.sort((a,b)=>a.price-b.price);
-  else if(sort==='pd') list.sort((a,b)=>b.price-a.price);
-  else if(sort==='cap') list.sort((a,b)=>b.capacity-a.capacity);
-  const g=document.getElementById('rooms-grid');
-  if(!g) return;
-  if(!list.length){g.innerHTML='<div style="text-align:center;padding:3rem;color:var(--tm);">🔍 Nincs találat.</div>';return;}
+// ── TYPES (guest-facing) ──
+function filterTypes(){renderTypes();}
+function renderTypes(){
+  const q=(document.getElementById('ts-q')?.value||'').toLowerCase();
+  const sort=document.getElementById('ts-sort')?.value||'';
+  let list=[...roomTypes].filter(t=>!q||t.name.toLowerCase().includes(q)||t.desc.toLowerCase().includes(q)||(t.amenities||[]).some(a=>a.toLowerCase().includes(q)));
+  if(sort==='pa')list.sort((a,b)=>a.price-b.price);
+  else if(sort==='pd')list.sort((a,b)=>b.price-a.price);
+  else if(sort==='cap')list.sort((a,b)=>b.capacity-a.capacity);
+  const g=document.getElementById('types-grid');if(!g)return;
+  if(!list.length){g.innerHTML='<div style="text-align:center;padding:4rem;color:var(--tm);">Nincs találat.</div>';return;}
   const emos=['🛏️','🛁','🌇','☕'];
-  g.innerHTML=list.map(r=>{
-    const slides=emos.map((e,i)=>`<div class="rg-slide${i?' hidden':''}" id="sl-${r.id}-${i}">${e}</div>`).join('');
-    const dots=emos.map((_,i)=>`<div class="gdot${i?' ':' active'}" onclick="event.stopPropagation();slideG('${r.id}',${i})"></div>`).join('');
-    return`<div class="rc" onclick="openRoomModal('${r.id}')">
-      <div class="rg-wrap">${slides}
-        <div class="rbw"><span class="rb rba">Elérhető</span>${r.featured?'<span class="rb rbf">Kiemelt</span>':''}</div>
+  g.innerHTML=list.map(t=>{
+    const cnt=physRooms.filter(r=>r.typeId===t.id&&r.status==='active').length;
+    const em=t.emoji||'🛏️';
+    const slides=[em,...emos.filter(e=>e!==em)].slice(0,4).map((e,i)=>`<div class="tc-slide${i?' hid':''}" id="sl-${t.id}-${i}">${e}</div>`).join('');
+    const dots=Array(4).fill(0).map((_,i)=>`<div class="gdot${!i?' on':''}" onclick="event.stopPropagation();slideT('${t.id}',${i})"></div>`).join('');
+    return`<div class="tc" onclick="openTypeDet('${t.id}')">
+      <div class="tc-img">
+        <div class="tc-slides">${slides}</div>
         <div class="gdots">${dots}</div>
+        <div class="tc-badges"><span class="rb ${cnt>0?'rb-a':'rb-n'}">${cnt>0?'Elérhető':'Foglalt'}</span>${t.featured?'<span class="rb rb-f">Kiemelt</span>':''}</div>
+        <div class="tc-rcnt">${cnt} szoba</div>
       </div>
-      <div class="rb-body">
-        <div class="rn">${r.name}${r.code?`<span class="rc-code">#${r.code}</span>`:''}</div>
-        <div class="rd">${r.desc}</div>
-        <div class="ams">${(r.amenities||[]).map(a=>`<span class="am">✓ ${a}</span>`).join('')}</div>
-        <div class="rf">
-          <div><div class="rp">${(r.price||0).toLocaleString('hu-HU')} Ft <small>/ éjszaka</small></div><div style="font-size:0.68rem;color:var(--tm);margin-top:0.2rem;">👥 Max. ${r.capacity||2} fő</div></div>
-          <button class="btn bo bsm" onclick="event.stopPropagation();openRoomModal('${r.id}')">Részletek</button>
+      <div class="tc-body">
+        <div class="tc-name">${t.name}</div>
+        <div class="tc-desc">${t.desc}</div>
+        <div class="ams">${(t.amenities||[]).map(a=>`<span class="am">✓ ${a}</span>`).join('')}</div>
+        <div class="tc-foot">
+          <div><div class="tc-price">${(t.price||0).toLocaleString('hu-HU')} Ft <small>/ éjszaka</small></div><div style="font-size:.65rem;color:var(--tm);margin-top:.15rem;">👥 Max. ${t.capacity||2} fő</div></div>
+          <button class="btn bo bsm" onclick="event.stopPropagation();openTypeDet('${t.id}')">Részletek</button>
         </div>
       </div>
     </div>`;
   }).join('');
 }
 
-function slideG(rid,idx){
-  [0,1,2,3].forEach(i=>{const el=document.getElementById(`sl-${rid}-${i}`);if(el)el.classList.toggle('hidden',i!==idx);});
-  document.querySelectorAll(`[onclick*="openRoomModal('${rid}')"] .gdot`).forEach((d,i)=>d.classList.toggle('active',i===idx));
+function slideT(tid,idx){
+  for(let i=0;i<4;i++){const el=document.getElementById(`sl-${tid}-${i}`);if(el)el.classList.toggle('hid',i!==idx);}
+  document.querySelectorAll(`[onclick*="openTypeDet('${tid}')"] .gdot`).forEach((d,i)=>d.classList.toggle('on',i===idx));
 }
 
-function openRoomModal(id){
-  const r=rooms.find(x=>x.id===id); if(!r) return;
-  const emos=['🛏️','🛁','🌇','☕'];
-  document.getElementById('m-room-c').innerHTML=`
-    <div style="font-size:3.5rem;text-align:center;margin-bottom:1rem;transition:all 0.3s;" id="med">${emos[0]}</div>
-    <div style="display:flex;justify-content:center;gap:0.45rem;margin-bottom:1.2rem;">
-      ${emos.map((e,i)=>`<div class="gdot${i?'':' active'}" onclick="document.getElementById('med').textContent='${e}';this.parentNode.querySelectorAll('.gdot').forEach((d,j)=>d.classList.toggle('active',j===${i}))"></div>`).join('')}
+function openTypeDet(id){
+  const t=roomTypes.find(x=>x.id===id);if(!t)return;
+  const cnt=physRooms.filter(r=>r.typeId===id&&r.status==='active').length;
+  document.getElementById('m-type-c').innerHTML=`
+    <div style="font-size:3.5rem;text-align:center;margin-bottom:1rem;">${t.emoji||'🛏️'}</div>
+    <div class="mt">${t.name}</div>
+    <div class="msub">${t.desc}</div>
+    <div class="ams" style="margin-bottom:1rem;">${(t.amenities||[]).map(a=>`<span class="am">✓ ${a}</span>`).join('')}</div>
+    <div style="display:flex;gap:1rem;font-size:.75rem;color:var(--td);margin-bottom:1.2rem;">
+      <span>👥 Max. ${t.capacity||2} fő</span><span>🚪 ${cnt} aktív szoba</span>
     </div>
-    <div class="mt">${r.name}${r.code?` <span style="font-size:0.75rem;color:var(--tm);font-family:'Jost',sans-serif;font-weight:300;">#${r.code}</span>`:''}</div>
-    <div class="msub">${r.desc}</div>
-    <div class="ams" style="margin-bottom:0.9rem;">${(r.amenities||[]).map(a=>`<span class="am">✓ ${a}</span>`).join('')}</div>
-    <p style="font-size:0.7rem;color:var(--tm);margin-bottom:1.2rem;">👥 Max. ${r.capacity||2} vendég</p>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding-top:1.2rem;border-top:1px solid var(--border);">
-      <div style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--gold);">${(r.price||0).toLocaleString('hu-HU')} Ft <small style="font-size:0.62rem;color:var(--tm);font-family:'Jost',sans-serif;font-weight:300;">/ éjszaka</small></div>
-      <button class="btn bg" onclick="selectRoom('${r.id}')">Foglalás →</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding-top:1.2rem;border-top:1px solid var(--br);">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);">${(t.price||0).toLocaleString('hu-HU')} Ft <small style="font-size:.62rem;color:var(--tm);font-family:'Jost',sans-serif;">/ éjszaka</small></div>
+      <button class="btn bg" onclick="selectType('${t.id}')">Foglalás →</button>
     </div>`;
-  openModal('m-room');
+  openM('m-type');
 }
 
-function selectRoom(id){
-  closeModal('m-room');
-  if(!CU){toast('Kérjük, jelentkezzen be!','inf');go('auth');return;}
+function selectType(id){
+  closeM('m-type');
+  if(!CU){toast('Kérjük, jelentkezzen be!','in');go('auth');return;}
   go('booking');
-  setTimeout(()=>{const s=document.getElementById('b-room');if(s){s.value=id;updateSum();}},60);
+  setTimeout(()=>{const s=document.getElementById('b-type');if(s){s.value=id;updateSum();}},60);
 }
 
-// ══════════════════════════════
-// BOOKING WIZARD
-// ══════════════════════════════
+// ── AVAILABILITY ──
+async function checkAvail(){
+  const typeId=document.getElementById('b-type')?.value;
+  const ci=document.getElementById('b-ci')?.value;
+  const co=document.getElementById('b-co')?.value;
+  const box=document.getElementById('avail-info');
+  if(!box||!typeId||!ci||!co||new Date(ci)>=new Date(co)){if(box)box.style.display='none';return;}
+  const free=await getFreeRooms(typeId,ci,co);
+  const total=physRooms.filter(r=>r.typeId===typeId&&r.status==='active').length;
+  box.style.display='';
+  if(free.length===0){
+    box.style.cssText='background:rgba(168,50,50,.08);border:1px solid rgba(168,50,50,.25);border-radius:var(--r);padding:.85rem 1.1rem;font-size:.76rem;color:#e06060;line-height:1.65;';
+    box.textContent='⚠️ Nincs szabad szoba erre az időszakra ebből a típusból.';
+  }else{
+    box.style.cssText='background:var(--gg);border:1px solid var(--gd);border-radius:var(--r);padding:.85rem 1.1rem;font-size:.76rem;color:var(--td);line-height:1.65;';
+    box.textContent=`✓ ${free.length} szabad szoba elérhető (összesen: ${total}).`;
+  }
+}
+
+async function getFreeRooms(typeId,ci,co){
+  const{db,collection,getDocs}=window._fb;
+  const typeRooms=physRooms.filter(r=>r.typeId===typeId&&r.status==='active');
+  if(!typeRooms.length)return[];
+  const snap=await getDocs(collection(db,'bookings'));
+  const bks=snap.docs.map(d=>d.data()).filter(b=>b.typeId===typeId&&b.status!=='cancelled'&&b.checkin<co&&b.checkout>ci);
+  const bookedIds=new Set(bks.map(b=>b.roomId).filter(Boolean));
+  return typeRooms.filter(r=>!bookedIds.has(r.id));
+}
+
+// ── BOOKING WIZARD ──
 function initBookForm(){
-  const sel=document.getElementById('b-room'); if(!sel) return;
-  sel.innerHTML=rooms.map(r=>`<option value="${r.id}">${r.name} – ${(r.price||0).toLocaleString('hu-HU')} Ft/éj</option>`).join('');
-  if(CU) document.getElementById('b-em').value=CU.email;
+  const sel=document.getElementById('b-type');if(!sel)return;
+  sel.innerHTML=roomTypes.map(t=>`<option value="${t.id}">${t.name} – ${(t.price||0).toLocaleString('hu-HU')} Ft/éj</option>`).join('');
+  if(CU)document.getElementById('b-em').value=CU.email;
   const today=new Date().toISOString().split('T')[0];
   const tom=new Date(Date.now()+86400000).toISOString().split('T')[0];
   const ci=document.getElementById('b-ci'),co=document.getElementById('b-co');
   ci.min=today;co.min=tom;if(!ci.value)ci.value=today;if(!co.value)co.value=tom;
-  document.getElementById('adm-src-field').style.display=isAdmin?'':'none';
+  document.getElementById('adm-banner').style.display=isAdmin?'':'none';
   setWStep(1);updateSum();
 }
 
 function setWStep(n){
   wStep=n;
-  document.querySelectorAll('.ws').forEach((s,i)=>{s.classList.toggle('active',i+1===n);s.classList.toggle('done',i+1<n);});
-  document.querySelectorAll('.wp').forEach((p,i)=>p.classList.toggle('active',i+1===n));
-  if(n===3) buildS3();
+  [1,2,3].forEach(i=>{
+    const ws=document.getElementById('ws'+i),wl=document.getElementById('wl'+i),wp=document.getElementById('step-'+i);
+    if(ws){ws.classList.toggle('ac',i===n);ws.classList.toggle('dn',i<n);}
+    if(wl)wl.classList.toggle('dn',i<n);
+    if(wp)wp.classList.toggle('ac',i===n);
+  });
+  if(n===3)buildS3();
 }
 function wNext(s){
   if(s===1){
     const ci=document.getElementById('b-ci').value,co=document.getElementById('b-co').value;
-    if(!ci||!co){toast('Adja meg a dátumokat!','err');return;}
-    if(new Date(ci)>=new Date(co)){toast('A távozás korábbi az érkezésnél!','err');return;}
+    if(!ci||!co){toast('Adja meg a dátumokat!','er');return;}
+    if(new Date(ci)>=new Date(co)){toast('A távozás dátuma korábbi az érkezésnél!','er');return;}
   }
   if(s===2){
-    if(!document.getElementById('b-fn').value.trim()||!document.getElementById('b-ln').value.trim()||!document.getElementById('b-em').value.trim()){toast('Töltse ki a kötelező mezőket!','err');return;}
+    if(!document.getElementById('b-fn').value.trim()||!document.getElementById('b-ln').value.trim()||!document.getElementById('b-em').value.trim()){toast('Töltse ki a kötelező mezőket!','er');return;}
   }
   setWStep(s+1);
 }
 function wPrev(s){setWStep(s-1);}
 
 function updateSum(){
-  const r=rooms.find(x=>x.id===document.getElementById('b-room')?.value);
+  const t=roomTypes.find(x=>x.id===document.getElementById('b-type')?.value);
   const ci=document.getElementById('b-ci')?.value,co=document.getElementById('b-co')?.value;
-  const sc=document.getElementById('sum-content'); if(!sc) return;
-  if(!r||!ci||!co){sc.innerHTML='<p style="color:var(--tm);font-size:0.78rem;font-style:italic;">Válasszon szobát és dátumot</p>';return;}
+  const sc=document.getElementById('sum-c');if(!sc)return;
+  if(!t||!ci||!co){sc.innerHTML='<p style="color:var(--tm);font-size:.78rem;font-style:italic;">Válasszon típust és dátumot</p>';return;}
   const n=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000));
-  const tot=n*(r.price||0);
-  sc.innerHTML=`
-    <div class="sr"><span>Szoba</span><span>${r.name}</span></div>
-    <div class="sr"><span>Érkezés</span><span>${ci}</span></div>
-    <div class="sr"><span>Távozás</span><span>${co}</span></div>
-    <div class="sr"><span>Éjszakák</span><span>${n}</span></div>
-    <div class="sr"><span>Ár/éj</span><span>${(r.price||0).toLocaleString('hu-HU')} Ft</span></div>
-    <div class="sr tot"><span>Végösszeg</span><span>${tot.toLocaleString('hu-HU')} Ft</span></div>
-    <div class="sum-note">💡 Fizetés érkezéskor, helyszínen. Online előleg nem szükséges.</div>`;
+  const tot=n*(t.price||0);
+  sc.innerHTML=`<div class="sr"><span>Típus</span><span>${t.name}</span></div><div class="sr"><span>Érkezés</span><span>${ci}</span></div><div class="sr"><span>Távozás</span><span>${co}</span></div><div class="sr"><span>Éjszakák</span><span>${n}</span></div><div class="sr"><span>Ár/éj</span><span>${(t.price||0).toLocaleString('hu-HU')} Ft</span></div><div class="sr tot"><span>Végösszeg</span><span>${tot.toLocaleString('hu-HU')} Ft</span></div><div class="sum-note">💡 Fizetés érkezéskor. Szobaszámot automatikusan rendeli a rendszer.</div>`;
 }
 
 function buildS3(){
-  const r=rooms.find(x=>x.id===document.getElementById('b-room').value);
+  const t=roomTypes.find(x=>x.id===document.getElementById('b-type').value);
   const ci=document.getElementById('b-ci').value,co=document.getElementById('b-co').value;
   const fn=document.getElementById('b-fn').value,ln=document.getElementById('b-ln').value;
   const em=document.getElementById('b-em').value,ph=document.getElementById('b-ph').value;
   const ad=document.getElementById('b-ad').value,ch=document.getElementById('b-ch').value;
   const nt=document.getElementById('b-nt').value;
-  if(!r) return;
+  if(!t)return;
   const n=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000));
-  const tot=n*(r.price||0);
-  document.getElementById('s3-sum').innerHTML=`
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;font-size:0.8rem;margin-bottom:1rem;">
-      ${[['Szoba',r.name],['Vendég',`${fn} ${ln}`],['Érkezés',ci],['Távozás',co],['Email',em],['Telefon',ph||'–'],['Vendégek',`${ad} felnőtt${+ch>0?', '+ch+' gyerek':''}`],['Éjszakák',n+' éj']].map(([l,v])=>`<div><div style="font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--tm);">${l}</div><div style="margin-top:0.2rem;">${v}</div></div>`).join('')}
+  const tot=n*(t.price||0);
+  document.getElementById('s3-c').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;font-size:.8rem;margin-bottom:1rem;">
+      ${[['Típus',t.name],['Vendég',`${fn} ${ln}`],['Érkezés',ci],['Távozás',co],['Email',em],['Telefon',ph||'–'],['Vendégek',`${ad} felnőtt${+ch>0?', '+ch+' gyerek':''}`],['Éjszakák',n+' éj']].map(([l,v])=>`<div><div style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tm);">${l}</div><div style="margin-top:.2rem;">${v}</div></div>`).join('')}
     </div>
-    ${nt?`<div style="font-size:0.76rem;color:var(--td);padding:0.7rem;background:var(--surface2);border-radius:var(--r);margin-bottom:0.8rem;">💬 ${nt}</div>`:''}
+    ${nt?`<div style="font-size:.76rem;color:var(--td);padding:.7rem;background:var(--s2);border-radius:var(--r);margin-bottom:.8rem;">💬 ${nt}</div>`:''}
     <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem;background:var(--gg);border:1px solid var(--gd);border-radius:var(--r);">
-      <span style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--td);">Végösszeg</span>
-      <span style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--gold);">${tot.toLocaleString('hu-HU')} Ft</span>
+      <span style="font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--td);">Végösszeg</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);">${tot.toLocaleString('hu-HU')} Ft</span>
     </div>`;
 }
 
 async function submitBooking(){
-  if(!CU){toast('Kérjük, jelentkezzen be!','err');return;}
-  const rid=document.getElementById('b-room').value;
-  const r=rooms.find(x=>x.id===rid);
+  if(!CU){toast('Kérjük, jelentkezzen be!','er');return;}
+  const typeId=document.getElementById('b-type').value;
+  const t=roomTypes.find(x=>x.id===typeId);
   const ci=document.getElementById('b-ci').value,co=document.getElementById('b-co').value;
   const fn=document.getElementById('b-fn').value.trim(),ln=document.getElementById('b-ln').value.trim();
   const em=document.getElementById('b-em').value.trim(),ph=document.getElementById('b-ph').value.trim();
   const ad=document.getElementById('b-ad').value,ch=document.getElementById('b-ch').value;
   const nt=document.getElementById('b-nt').value.trim();
   const src=isAdmin?(document.getElementById('b-src')?.value||'admin'):'online';
-  if(!r||!ci||!co||!fn||!ln||!em){toast('Töltse ki a kötelező mezőket!','err');return;}
+  if(!t||!ci||!co||!fn||!ln||!em){toast('Töltse ki a kötelező mezőket!','er');return;}
   const n=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000));
-  const tot=n*(r.price||0);
-  const {db,collection,addDoc,serverTimestamp}=window._fb;
+  const tot=n*(t.price||0);
+  const freeRooms=await getFreeRooms(typeId,ci,co);
+  const freeRoom=freeRooms[0]||null;
+  const{db,collection,addDoc,serverTimestamp}=window._fb;
   try{
-    const ref=await addDoc(collection(db,'bookings'),{
-      userId:CU.uid,userEmail:CU.email,roomId:rid,roomName:r.name,roomCode:r.code||'',
-      checkin:ci,checkout:co,firstname:fn,lastname:ln,email:em,phone:ph,
-      adults:+ad,children:+ch,notes:nt,nights:n,total:tot,
-      status:'pending',source:src,checkedIn:false,checkedOut:false,
-      createdAt:serverTimestamp()
-    });
-    try{await emailjs.send(EJS,EJT,{to_name:`${fn} ${ln}`,to_email:em,room_name:r.name,checkin:ci,checkout:co,nights:n.toString(),total:tot.toLocaleString('hu-HU')+' Ft',booking_id:ref.id,adults:ad.toString(),children:ch.toString(),phone:ph||'–',notes:nt||'–'});}
-    catch(e){console.warn('EmailJS:',e);}
-    toast('Foglalás sikeresen elküldve! Email értesítőt küldtünk.','ok');
+    const ref=await addDoc(collection(db,'bookings'),{userId:CU.uid,userEmail:CU.email,typeId,typeName:t.name,roomId:freeRoom?.id||null,roomNumber:freeRoom?.number||null,checkin:ci,checkout:co,firstname:fn,lastname:ln,email:em,phone:ph,adults:+ad,children:+ch,notes:nt,nights:n,total:tot,status:'pending',source:src,checkedIn:false,checkedOut:false,createdAt:serverTimestamp()});
+    try{await emailjs.send(EJS,EJT,{to_name:`${fn} ${ln}`,to_email:em,room_name:t.name,checkin:ci,checkout:co,nights:n.toString(),total:tot.toLocaleString('hu-HU')+' Ft',booking_id:ref.id,adults:ad.toString(),children:ch.toString(),phone:ph||'–',notes:nt||'–',room_number:freeRoom?.number||'Hamarosan hozzárendelve'});}catch(e){console.warn('EmailJS:',e);}
+    toast(freeRoom?`Foglalás elküldve! Szoba: #${freeRoom.number}`:'Foglalás elküldve! Admin hamarosan szobát rendel.','ok');
     go('mybookings');
-  }catch(e){toast('Hiba: '+e.message,'err');}
+  }catch(e){toast('Hiba: '+e.message,'er');}
 }
 
-// ══════════════════════════════
-// MY BOOKINGS
-// ══════════════════════════════
+// ── MY BOOKINGS ──
 async function loadMyBk(){
-  if(!CU) return;
-  const {db,collection,getDocs,query,where}=window._fb;
-  const tb=document.getElementById('my-tb');
+  if(!CU)return;
+  const{db,collection,getDocs,query,where}=window._fb;
+  const tb=document.getElementById('my-tb');if(!tb)return;
   try{
-    const q=query(collection(db,'bookings'),where('userId','==',CU.uid));
-    const snap=await getDocs(q);
+    const snap=await getDocs(query(collection(db,'bookings'),where('userId','==',CU.uid)));
     const items=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-    if(!items.length){tb.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--tm);">Még nincs foglalása. <button class="btn bo bsm" onclick="go('rooms')" style="margin-left:0.5rem;">Szobák</button></td></tr>`;return;}
+    if(!items.length){tb.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:3rem;color:var(--tm);">Még nincs foglalása. <button class="btn bo bsm" onclick="go('types')" style="margin-left:.5rem;">Szobatípusok</button></td></tr>`;return;}
     tb.innerHTML=items.map(b=>`<tr>
-      <td><strong>${b.roomName}</strong>${b.roomCode?` <span style="color:var(--tm);font-size:0.68rem;">#${b.roomCode}</span>`:''}</td>
+      <td><strong>${b.typeName||'–'}</strong></td>
+      <td>${b.roomNumber?`<span class="badge b-g">#${b.roomNumber}</span>`:'<span style="color:var(--tm);font-size:.7rem;font-style:italic;">Folyamatban...</span>'}</td>
       <td>${b.checkin}</td><td>${b.checkout}</td>
-      <td>${b.adults} felnőtt${(b.children||0)>0?', '+b.children+' gyerek':''}</td>
+      <td>${b.adults}f${(b.children||0)>0?' '+b.children+'gy':''}</td>
       <td><span class="badge ${bCls(b.status)}">${bLbl(b.status)}</span></td>
-      <td style="color:var(--gold);font-family:'Playfair Display',serif;">${(b.total||0).toLocaleString('hu-HU')} Ft</td>
-      <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
-        <button class="btn bgh bsm" onclick="openBkDetail(${JSON.stringify(b).replace(/"/g,'&quot;')})">Részletek</button>
+      <td style="color:var(--gold);font-family:'Cormorant Garamond',serif;">${(b.total||0).toLocaleString('hu-HU')} Ft</td>
+      <td style="display:flex;gap:.35rem;flex-wrap:wrap;">
+        <button class="btn bgh bsm" onclick='showBkDet(${safeJ(b)})'>Részletek</button>
         ${b.status==='pending'?`<button class="btn bd bsm" onclick="cancelMyBk('${b.id}')">Lemondás</button>`:''}
       </td>
     </tr>`).join('');
-  }catch(e){tb.innerHTML=`<tr><td colspan="7" style="color:var(--danger);padding:1rem;">Hiba: ${e.message}</td></tr>`;}
+  }catch(e){tb.innerHTML=`<tr><td colspan="8" style="color:var(--red);padding:1rem;">Hiba: ${e.message}</td></tr>`;}
 }
 
 async function cancelMyBk(id){
-  if(!confirm('Biztosan lemondja?'))return;
-  const {db,doc,updateDoc}=window._fb;
+  if(!confirm('Biztosan lemondja a foglalást?'))return;
+  const{db,doc,updateDoc}=window._fb;
   await updateDoc(doc(db,'bookings',id),{status:'cancelled'});
-  toast('Foglalás lemondva.','inf');loadMyBk();
+  toast('Foglalás lemondva.','in');loadMyBk();
 }
 
-function openBkDetail(b){
-  const nights=Math.max(1,Math.round((new Date(b.checkout)-new Date(b.checkin))/86400000));
+function showBkDet(b){
   document.getElementById('m-bkdet-c').innerHTML=`
-    <div class="mt">${b.roomName}</div>
-    <div class="msub">Foglalás részletei</div>
-    ${[['Foglalás ID',b.id.slice(0,8)+'...'],['Vendég',`${b.firstname} ${b.lastname}`],['Email',b.email||'–'],['Telefon',b.phone||'–'],['Érkezés',b.checkin],['Távozás',b.checkout],['Éjszakák',nights+' éj'],['Felnőttek',b.adults||0],['Gyerekek',b.children||0],['Státusz',bLbl(b.status)],['Forrás',srcLbl(b.source)],['Check-in',b.checkedIn?'✓ Megérkezett':'Nem érkezett meg'],['Check-out',b.checkedOut?'✓ Elutazott':'Még bent van'],['Összeg',(b.total||0).toLocaleString('hu-HU')+' Ft']].map(([l,v])=>`<div class="bd-row"><div class="bd-label">${l}</div><div class="bd-val">${v}</div></div>`).join('')}
-    ${b.notes?`<div style="margin-top:1rem;padding:0.8rem;background:var(--surface2);border-radius:var(--r);font-size:0.78rem;color:var(--td);">💬 ${b.notes}</div>`:''}`;
-  openModal('m-bkdet');
+    <div class="mt">${b.typeName||'–'}</div><div class="msub">Foglalás részletei</div>
+    ${[['Foglalás ID',b.id.slice(0,10)+'…'],['Szoba #',b.roomNumber||'Hozzárendelés folyamatban'],['Vendég',`${b.firstname||''} ${b.lastname||''}`],['Email',b.email||'–'],['Telefon',b.phone||'–'],['Érkezés',b.checkin],['Távozás',b.checkout],['Éjszakák',(b.nights||1)+' éj'],['Felnőttek',b.adults||0],['Gyerekek',b.children||0],['Státusz',bLbl(b.status)],['Forrás',srcLbl(b.source)],['Check-in',b.checkedIn?'✓ Megérkezett':'Nem érkezett meg'],['Check-out',b.checkedOut?'✓ Elutazott':'Még bent'],['Összeg',(b.total||0).toLocaleString('hu-HU')+' Ft']].map(([l,v])=>`<div class="bdr"><div class="bdl">${l}</div><div>${v}</div></div>`).join('')}
+    ${b.notes?`<div style="margin-top:1rem;padding:.8rem;background:var(--s2);border-radius:var(--r);font-size:.78rem;color:var(--td);">💬 ${b.notes}</div>`:''}`;
+  openM('m-bkdet');
 }
 
-// ══════════════════════════════
-// PROFILE
-// ══════════════════════════════
+// ── PROFILE ──
 async function loadProfile(){
   if(!CU){go('auth');return;}
-  const {db,collection,getDocs,query,where,getDoc,doc}=window._fb;
+  const{db,collection,getDocs,query,where,getDoc,doc}=window._fb;
   const snap=await getDoc(doc(db,'users',CU.uid));
   const ud=snap.exists()?snap.data():{};
-  const fn=ud.firstname||'';const ln=ud.lastname||'';
-  const name=fn||ln?`${fn} ${ln}`.trim():CU.email.split('@')[0];
+  const name=ud.firstname||ud.lastname?`${ud.firstname||''} ${ud.lastname||''}`.trim():CU.email.split('@')[0];
   document.getElementById('p-av').textContent=CU.email[0].toUpperCase();
   document.getElementById('p-name').textContent=name;
   document.getElementById('p-email').textContent=CU.email;
-
-  const bkq=query(collection(db,'bookings'),where('userId','==',CU.uid));
-  const bksnap=await getDocs(bkq);
-  const bks=bksnap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-  document.getElementById('p-bcount').textContent=bks.length;
-
-  const rvq=query(collection(db,'reviews'),where('userId','==',CU.uid));
-  const rvsnap=await getDocs(rvq);
-  document.getElementById('p-rcount').textContent=rvsnap.size;
-
+  const bks=(await getDocs(query(collection(db,'bookings'),where('userId','==',CU.uid)))).docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+  document.getElementById('p-bc').textContent=bks.length;
+  document.getElementById('p-rc').textContent=(await getDocs(query(collection(db,'reviews'),where('userId','==',CU.uid)))).size;
   const ptb=document.getElementById('p-tb');
-  if(!bks.length){ptb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--tm);">Még nincs foglalása.</td></tr>';return;}
-  ptb.innerHTML=bks.map(b=>`<tr>
-    <td><strong>${b.roomName}</strong></td>
-    <td>${b.checkin}</td><td>${b.checkout}</td>
-    <td><span class="badge ${bCls(b.status)}">${bLbl(b.status)}</span></td>
-    <td style="color:var(--gold);font-family:'Playfair Display',serif;">${(b.total||0).toLocaleString('hu-HU')} Ft</td>
-  </tr>`).join('');
+  ptb.innerHTML=bks.length?bks.map(b=>`<tr><td><strong>${b.typeName||'–'}</strong></td><td>${b.roomNumber?`<span class="badge b-g">#${b.roomNumber}</span>`:'–'}</td><td>${b.checkin}</td><td>${b.checkout}</td><td><span class="badge ${bCls(b.status)}">${bLbl(b.status)}</span></td><td style="color:var(--gold);font-family:'Cormorant Garamond',serif;">${(b.total||0).toLocaleString('hu-HU')} Ft</td></tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--tm);">Még nincs foglalása.</td></tr>';
 }
 
-async function changePassword(){
-  if(!CU){return;}
-  const cur=document.getElementById('p-cur-pw').value;
-  const np=document.getElementById('p-new-pw').value;
-  const np2=document.getElementById('p-new-pw2').value;
-  if(!cur||!np||!np2){toast('Töltse ki az összes mezőt!','err');return;}
-  if(np!==np2){toast('Az új jelszavak nem egyeznek!','err');return;}
-  if(np.length<6){toast('A jelszónak legalább 6 karakter kell!','err');return;}
-  const {auth,EmailAuthProvider,reauthenticateWithCredential,updatePassword}=window._fb;
+async function changePw(){
+  if(!CU)return;
+  const cp=document.getElementById('p-cp').value,np=document.getElementById('p-np').value,np2=document.getElementById('p-np2').value;
+  if(!cp||!np||!np2){toast('Töltse ki az összes mezőt!','er');return;}
+  if(np!==np2){toast('Az új jelszavak nem egyeznek!','er');return;}
+  if(np.length<6){toast('Min. 6 karakter szükséges!','er');return;}
+  const{auth,EmailAuthProvider,reauthenticateWithCredential,updatePassword}=window._fb;
   try{
-    const cred=EmailAuthProvider.credential(CU.email,cur);
-    await reauthenticateWithCredential(CU,cred);
+    await reauthenticateWithCredential(CU,EmailAuthProvider.credential(CU.email,cp));
     await updatePassword(CU,np);
-    toast('Jelszó sikeresen módosítva!','ok');
-    document.getElementById('p-cur-pw').value='';
-    document.getElementById('p-new-pw').value='';
-    document.getElementById('p-new-pw2').value='';
-  }catch(e){toast('Hiba: '+(e.code==='auth/wrong-password'?'Hibás jelenlegi jelszó':e.message),'err');}
+    toast('Jelszó módosítva!','ok');
+    ['p-cp','p-np','p-np2'].forEach(id=>document.getElementById(id).value='');
+  }catch(e){toast(e.code==='auth/wrong-password'?'Hibás jelenlegi jelszó!':'Hiba: '+e.message,'er');}
 }
 
-// ══════════════════════════════
-// ADMIN BOOKINGS
-// ══════════════════════════════
+// ── ADMIN BOOKINGS ──
 async function loadAdminBk(){
-  if(!isAdmin) return;
-  const {db,collection,getDocs,query,where}=window._fb;
-  const tb=document.getElementById('a-tb'); if(!tb) return;
-  tb.innerHTML='<tr><td colspan="10" style="text-align:center;padding:3rem;color:var(--tm);">Betöltés...</td></tr>';
+  if(!isAdmin)return;
+  const{db,collection,getDocs,query,where}=window._fb;
+  const tb=document.getElementById('a-bk-tb');if(!tb)return;
   try{
-    const flt=document.getElementById('a-filter')?.value||'';
+    const flt=document.getElementById('a-flt')?.value||'';
     const q=flt?query(collection(db,'bookings'),where('status','==',flt)):collection(db,'bookings');
     const snap=await getDocs(q);
     allBk=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-
+    const tod=new Date().toISOString().split('T')[0];
     document.getElementById('st-tot').textContent=allBk.length;
     document.getElementById('st-pen').textContent=allBk.filter(b=>b.status==='pending').length;
     document.getElementById('st-con').textContent=allBk.filter(b=>b.status==='confirmed').length;
-    const tod=new Date().toISOString().split('T')[0];
     document.getElementById('st-ci').textContent=allBk.filter(b=>b.checkin===tod&&b.status==='confirmed').length;
     document.getElementById('st-rev').textContent=allBk.filter(b=>b.status==='confirmed').reduce((s,b)=>s+(b.total||0),0).toLocaleString('hu-HU')+' Ft';
-
     renderChart(allBk);
-
-    if(!allBk.length){tb.innerHTML='<tr><td colspan="10" style="text-align:center;padding:3rem;color:var(--tm);">Nincs foglalás.</td></tr>';return;}
+    if(!allBk.length){tb.innerHTML='<tr><td colspan="11" style="text-align:center;padding:3rem;color:var(--tm);">Nincs foglalás.</td></tr>';return;}
     tb.innerHTML=allBk.map(b=>`<tr>
-      <td><strong>${b.firstname||''} ${b.lastname||''}</strong><br><span style="font-size:0.7rem;color:var(--tm);">${b.userEmail}</span>${b.phone?`<br><span style="font-size:0.7rem;color:var(--tm);">${b.phone}</span>`:''}</td>
-      <td>${b.roomName}${b.roomCode?` <span style="color:var(--tm);font-size:0.68rem;">#${b.roomCode}</span>`:''}</td>
-      <td>${b.checkin}</td><td>${b.checkout}</td>
-      <td>${b.adults||0} fel.${(b.children||0)>0?'<br>'+b.children+' gy.':''}</td>
-      <td><span style="font-size:0.68rem;color:var(--tm);">${srcLbl(b.source)}</span></td>
+      <td><strong>${b.firstname||''} ${b.lastname||''}</strong><br><span style="font-size:.7rem;color:var(--tm);">${b.userEmail}</span>${b.phone?`<br><span style="font-size:.7rem;color:var(--tm);">${b.phone}</span>`:''}</td>
+      <td>${b.typeName||'–'}</td>
       <td>
-        <div class="ci-status">
-          <span class="badge ${b.checkedIn?'bco':'bp'}" style="cursor:pointer;" onclick="toggleCI('${b.id}','in',${!b.checkedIn})">${b.checkedIn?'✓ Be':'Be →'}</span>
-          <span class="badge ${b.checkedOut?'bco':'bp'}" style="cursor:pointer;" onclick="toggleCI('${b.id}','out',${!b.checkedOut})">${b.checkedOut?'✓ Ki':'Ki →'}</span>
-        </div>
+        ${b.roomNumber?`<span class="badge b-g">#${b.roomNumber}</span>`:'<span style="color:var(--tm);font-size:.7rem;">–</span>'}
+        <br><button class="btn bgh bsm" style="margin-top:.3rem;" onclick="openAssign('${b.id}','${b.typeId||''}','${(b.typeName||'').replace(/'/g,'&apos;')}')">Hozzárendel</button>
+      </td>
+      <td>${b.checkin}</td><td>${b.checkout}</td>
+      <td>${b.adults||0}f${(b.children||0)>0?' '+(b.children)+'gy':''}</td>
+      <td><span style="font-size:.68rem;color:var(--tm);">${srcLbl(b.source)}</span></td>
+      <td>
+        <span class="badge ${b.checkedIn?'b-ok':'b-p'}" style="cursor:pointer;display:block;margin-bottom:.2rem;" onclick="toggleCI('${b.id}','in',${!b.checkedIn})">${b.checkedIn?'✓ Be-':'Be →'}</span>
+        <span class="badge ${b.checkedOut?'b-ok':'b-p'}" style="cursor:pointer;" onclick="toggleCI('${b.id}','out',${!b.checkedOut})">${b.checkedOut?'✓ Ki-':'Ki →'}</span>
       </td>
       <td><span class="badge ${bCls(b.status)}">${bLbl(b.status)}</span></td>
-      <td style="color:var(--gold);font-family:'Playfair Display',serif;white-space:nowrap;">${(b.total||0).toLocaleString('hu-HU')} Ft</td>
-      <td style="display:flex;gap:0.35rem;flex-wrap:wrap;">
-        <button class="btn bgh bsm" onclick="openBkDetail(${JSON.stringify(b).replace(/"/g,'&quot;')})">👁</button>
+      <td style="color:var(--gold);font-family:'Cormorant Garamond',serif;white-space:nowrap;">${(b.total||0).toLocaleString('hu-HU')} Ft</td>
+      <td style="display:flex;gap:.3rem;flex-wrap:wrap;">
+        <button class="btn bgh bsm" onclick='showBkDet(${safeJ(b)})'>👁</button>
         ${b.status==='pending'?`<button class="btn bs bsm" onclick="confirmBk('${b.id}')">✓</button>`:''}
-        ${b.status!=='cancelled'?`<button class="btn bd bsm" onclick="adminCancelBk('${b.id}')">✕</button>`:''}
+        ${b.status!=='cancelled'?`<button class="btn bd bsm" onclick="adminCancel('${b.id}')">✕</button>`:''}
       </td>
     </tr>`).join('');
-  }catch(e){if(tb)tb.innerHTML=`<tr><td colspan="10" style="color:var(--danger);padding:1rem;">Hiba: ${e.message}</td></tr>`;}
+  }catch(e){tb.innerHTML=`<tr><td colspan="11" style="color:var(--red);padding:1rem;">Hiba: ${e.message}</td></tr>`;}
 }
 
+function openAssign(bkId,typeId,typeName){
+  document.getElementById('m-assign-sub').textContent='Típus: '+typeName;
+  document.getElementById('assign-bk-id').value=bkId;
+  const typeRooms=physRooms.filter(r=>r.typeId===typeId&&r.status==='active');
+  const sel=document.getElementById('assign-sel');
+  sel.innerHTML='<option value="">– Szoba nélkül –</option>'+typeRooms.map(r=>`<option value="${r.id}">${r.number}${r.floor?' – '+r.floor:''}</option>`).join('');
+  const bk=allBk.find(b=>b.id===bkId);if(bk?.roomId)sel.value=bk.roomId;
+  openM('m-assign');
+}
+async function doAssign(){
+  const bkId=document.getElementById('assign-bk-id').value;
+  const roomId=document.getElementById('assign-sel').value;
+  const room=physRooms.find(r=>r.id===roomId);
+  const{db,doc,updateDoc}=window._fb;
+  await updateDoc(doc(db,'bookings',bkId),{roomId:roomId||null,roomNumber:room?.number||null});
+  toast(room?`Szoba #${room.number} hozzárendelve!`:'Szoba hozzárendelés törölve.','ok');
+  closeM('m-assign');loadAdminBk();
+}
 async function toggleCI(id,type,val){
-  const {db,doc,updateDoc}=window._fb;
-  const field=type==='in'?'checkedIn':'checkedOut';
-  await updateDoc(doc(db,'bookings',id),{[field]:val});
-  toast(val?(type==='in'?'Check-in jelölve!':'Check-out jelölve!'):(type==='in'?'Check-in visszavonva':'Check-out visszavonva'),'inf');
+  const{db,doc,updateDoc}=window._fb;
+  await updateDoc(doc(db,'bookings',id),{[type==='in'?'checkedIn':'checkedOut']:val});
+  toast(val?(type==='in'?'Check-in jelölve!':'Check-out jelölve!'):(type==='in'?'Check-in visszavonva':'Check-out visszavonva'),'in');
   loadAdminBk();
 }
+async function confirmBk(id){const{db,doc,updateDoc}=window._fb;await updateDoc(doc(db,'bookings',id),{status:'confirmed'});toast('Visszaigazolva!','ok');loadAdminBk();}
+async function adminCancel(id){if(!confirm('Törli?'))return;const{db,doc,updateDoc}=window._fb;await updateDoc(doc(db,'bookings',id),{status:'cancelled'});toast('Törölve.','in');loadAdminBk();}
 
-async function confirmBk(id){
-  const {db,doc,updateDoc}=window._fb;
-  await updateDoc(doc(db,'bookings',id),{status:'confirmed'});
-  toast('Foglalás visszaigazolva!','ok');loadAdminBk();
-}
-async function adminCancelBk(id){
-  if(!confirm('Törli a foglalást?'))return;
-  const {db,doc,updateDoc}=window._fb;
-  await updateDoc(doc(db,'bookings',id),{status:'cancelled'});
-  toast('Foglalás törölve.','inf');loadAdminBk();
-}
-
-function renderChart(bks){
-  const c=document.getElementById('bk-chart'); if(!c) return;
-  const labels=[],data=[];
-  for(let i=6;i>=0;i--){
-    const d=new Date();d.setDate(d.getDate()-i);
-    const ds=d.toISOString().split('T')[0];
-    labels.push(d.toLocaleDateString('hu-HU',{month:'short',day:'numeric'}));
-    data.push(bks.filter(b=>b.createdAt?.seconds&&new Date(b.createdAt.seconds*1000).toISOString().split('T')[0]===ds).length);
-  }
-  if(bkChart) bkChart.destroy();
-  bkChart=new Chart(c,{type:'bar',data:{labels,datasets:[{label:'Foglalások',data,backgroundColor:'rgba(201,168,76,0.22)',borderColor:'rgba(201,168,76,0.75)',borderWidth:1.5,borderRadius:3}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4a4540',font:{size:11,family:'Jost'}}},y:{grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4a4540',font:{size:11,family:'Jost'},stepSize:1},beginAtZero:true}}}});
-}
-
-// ADMIN BOOKING FORM
+// ADMIN BOOK FORM
 function initAbForm(){
-  const s=document.getElementById('ab-rm'); if(!s) return;
-  s.innerHTML=rooms.map(r=>`<option value="${r.id}">${r.name} – ${(r.price||0).toLocaleString('hu-HU')} Ft/éj</option>`).join('');
-  const today=new Date().toISOString().split('T')[0];
-  const tom=new Date(Date.now()+86400000).toISOString().split('T')[0];
+  const s=document.getElementById('ab-type');if(!s)return;
+  s.innerHTML=roomTypes.map(t=>`<option value="${t.id}">${t.name} – ${(t.price||0).toLocaleString('hu-HU')} Ft/éj</option>`).join('');
+  const today=new Date().toISOString().split('T')[0],tom=new Date(Date.now()+86400000).toISOString().split('T')[0];
   const ci=document.getElementById('ab-ci'),co=document.getElementById('ab-co');
-  if(ci){ci.min=today;if(!ci.value)ci.value=today;}
-  if(co){co.min=tom;if(!co.value)co.value=tom;}
+  if(ci){ci.min=today;if(!ci.value)ci.value=today;}if(co){co.min=tom;if(!co.value)co.value=tom;}
   updateAbSum();
 }
 function updateAbSum(){
-  const r=rooms.find(x=>x.id===document.getElementById('ab-rm')?.value);
+  const t=roomTypes.find(x=>x.id===document.getElementById('ab-type')?.value);
   const ci=document.getElementById('ab-ci')?.value,co=document.getElementById('ab-co')?.value;
-  const box=document.getElementById('ab-sum'); if(!box||!r||!ci||!co) return;
+  const box=document.getElementById('ab-sum');if(!box||!t||!ci||!co)return;
   const n=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000));
-  box.innerHTML=`<span style="color:var(--td);">Szoba:</span> <strong>${r.name}</strong> &nbsp;|&nbsp; <span style="color:var(--td);">${n} éj</span> &nbsp;|&nbsp; <span style="color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;">${(n*(r.price||0)).toLocaleString('hu-HU')} Ft</span>`;
+  box.innerHTML=`<strong>${t.name}</strong> · ${n} éj · <span style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1rem;">${(n*(t.price||0)).toLocaleString('hu-HU')} Ft</span>`;
 }
 async function submitAdminBk(){
-  if(!isAdmin){toast('Nincs jogosultság!','err');return;}
-  const rid=document.getElementById('ab-rm').value,r=rooms.find(x=>x.id===rid);
+  if(!isAdmin)return;
+  const typeId=document.getElementById('ab-type').value,t=roomTypes.find(x=>x.id===typeId);
   const ci=document.getElementById('ab-ci').value,co=document.getElementById('ab-co').value;
   const fn=document.getElementById('ab-fn').value.trim(),ln=document.getElementById('ab-ln').value.trim();
   const em=document.getElementById('ab-em').value.trim(),ph=document.getElementById('ab-ph').value.trim();
   const ad=document.getElementById('ab-ad').value,ch=document.getElementById('ab-ch').value;
   const nt=document.getElementById('ab-nt').value.trim(),src=document.getElementById('ab-src').value;
-  if(!r||!ci||!co||!fn||!ln||!em){toast('Töltse ki a kötelező mezőket!','err');return;}
-  if(new Date(ci)>=new Date(co)){toast('Hibás dátum!','err');return;}
-  const n=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000));
-  const tot=n*(r.price||0);
-  const {db,collection,addDoc,serverTimestamp}=window._fb;
+  if(!t||!ci||!co||!fn||!ln||!em){toast('Töltse ki a kötelező mezőket!','er');return;}
+  if(new Date(ci)>=new Date(co)){toast('Hibás dátum!','er');return;}
+  const n=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000)),tot=n*(t.price||0);
+  const freeRooms=await getFreeRooms(typeId,ci,co);
+  const freeRoom=freeRooms[0]||null;
+  const{db,collection,addDoc,serverTimestamp}=window._fb;
   try{
-    const ref=await addDoc(collection(db,'bookings'),{userId:CU.uid,userEmail:CU.email,roomId:rid,roomName:r.name,roomCode:r.code||'',checkin:ci,checkout:co,firstname:fn,lastname:ln,email:em,phone:ph,adults:+ad,children:+ch,notes:nt,nights:n,total:tot,status:'confirmed',source:src,checkedIn:false,checkedOut:false,adminBooking:true,createdAt:serverTimestamp()});
-    try{await emailjs.send(EJS,EJT,{to_name:`${fn} ${ln}`,to_email:em,room_name:r.name,checkin:ci,checkout:co,nights:n.toString(),total:tot.toLocaleString('hu-HU')+' Ft',booking_id:ref.id,adults:ad.toString(),children:ch.toString(),phone:ph||'–',notes:nt||'–'});}
-    catch(e){console.warn(e);}
-    toast('Admin foglalás rögzítve!','ok');loadAdminBk();aTab('bk');
-  }catch(e){toast('Hiba: '+e.message,'err');}
+    await addDoc(collection(db,'bookings'),{userId:CU.uid,userEmail:CU.email,typeId,typeName:t.name,roomId:freeRoom?.id||null,roomNumber:freeRoom?.number||null,checkin:ci,checkout:co,firstname:fn,lastname:ln,email:em,phone:ph,adults:+ad,children:+ch,notes:nt,nights:n,total:tot,status:'confirmed',source:src,checkedIn:false,checkedOut:false,adminBooking:true,createdAt:serverTimestamp()});
+    toast(freeRoom?`Admin foglalás rögzítve! Szoba: #${freeRoom.number}`:'Admin foglalás rögzítve! Szoba manuálisan rendelendő.','ok');
+    loadAdminBk();aTab('bk');
+  }catch(e){toast('Hiba: '+e.message,'er');}
 }
 
-// ADMIN ROOMS
-async function loadAdminRooms(){
+// ADMIN TYPES
+function loadAdminTypes(){
   if(!isAdmin)return;
-  const g=document.getElementById('a-rg'); if(!g) return;
-  g.innerHTML=rooms.map(r=>`<div class="rc" style="cursor:default;">
-    <div class="rg-wrap"><div class="rg-slide">${r.emoji||'🛏️'}</div></div>
-    <div class="rb-body">
-      <div class="rn">${r.name}${r.code?`<span class="rc-code">#${r.code}</span>`:''}</div>
-      <div class="rd">${r.desc}</div>
-      <div class="ams">${(r.amenities||[]).map(a=>`<span class="am">${a}</span>`).join('')}</div>
-      <div class="rf">
-        <div class="rp">${(r.price||0).toLocaleString('hu-HU')} Ft <small>/ éjszaka</small></div>
-        <div style="display:flex;gap:0.4rem;">
-          <button class="btn bo bsm" onclick="openEditRoom('${r.id}')">Szerkesztés</button>
-          <button class="btn bd bsm" onclick="deleteRoom('${r.id}')">Törlés</button>
+  const g=document.getElementById('a-typ-grid');if(!g)return;
+  g.innerHTML=roomTypes.map(t=>`<div class="tc" style="cursor:default;">
+    <div class="tc-img"><div style="font-size:5rem;">${t.emoji||'🛏️'}</div></div>
+    <div class="tc-body">
+      <div class="tc-name">${t.name}</div>
+      <div class="tc-desc">${t.desc}</div>
+      <div class="ams">${(t.amenities||[]).map(a=>`<span class="am">${a}</span>`).join('')}</div>
+      <div class="tc-foot">
+        <div><div class="tc-price">${(t.price||0).toLocaleString('hu-HU')} Ft <small>/ éjszaka</small></div><div style="font-size:.65rem;color:var(--tm);">👥 Max. ${t.capacity||2} fő · ${physRooms.filter(r=>r.typeId===t.id).length} szoba</div></div>
+        <div style="display:flex;gap:.4rem;">
+          <button class="btn bo bsm" onclick="openTypeForm('${t.id}')">Szerkeszt</button>
+          <button class="btn bd bsm" onclick="deleteType('${t.id}')">Törlés</button>
         </div>
       </div>
     </div>
   </div>`).join('');
 }
 
-function openEditRoom(id){
-  const r=rooms.find(x=>x.id===id); if(!r) return;
-  document.getElementById('addroom-title').textContent='Szoba szerkesztése';
-  document.getElementById('nr-name').value=r.name||'';
-  document.getElementById('nr-desc').value=r.desc||'';
-  document.getElementById('nr-price').value=r.price||'';
-  document.getElementById('nr-cap').value=r.capacity||2;
-  document.getElementById('nr-emoji').value=r.emoji||'🛏️';
-  document.getElementById('nr-code').value=r.code||'';
-  document.getElementById('nr-feat').value=r.featured?'1':'0';
-  document.getElementById('nr-am').value=(r.amenities||[]).join(', ');
-  document.getElementById('nr-edit-id').value=id;
-  document.getElementById('saveroom-btn').textContent='Szoba mentése';
-  openModal('m-addroom');
+function openTypeForm(id){
+  const t=id?roomTypes.find(x=>x.id===id):null;
+  document.getElementById('tf-title').textContent=t?'Típus szerkesztése':'Új szobatípus';
+  document.getElementById('tf-id').value=id||'';
+  document.getElementById('tf-name').value=t?.name||'';
+  document.getElementById('tf-desc').value=t?.desc||'';
+  document.getElementById('tf-price').value=t?.price||'';
+  document.getElementById('tf-cap').value=t?.capacity||2;
+  document.getElementById('tf-emoji').value=t?.emoji||'🛏️';
+  document.getElementById('tf-feat').value=t?.featured?'1':'0';
+  document.getElementById('tf-am').value=(t?.amenities||[]).join(', ');
+  openM('m-type-form');
+}
+async function saveType(){
+  const name=document.getElementById('tf-name').value.trim();
+  const price=+document.getElementById('tf-price').value;
+  if(!name||!price){toast('Név és ár kötelező!','er');return;}
+  const data={name,desc:document.getElementById('tf-desc').value.trim(),price,capacity:+document.getElementById('tf-cap').value||2,emoji:document.getElementById('tf-emoji').value.trim()||'🛏️',featured:document.getElementById('tf-feat').value==='1',amenities:document.getElementById('tf-am').value.split(',').map(s=>s.trim()).filter(Boolean)};
+  const editId=document.getElementById('tf-id').value;
+  const{db,collection,addDoc,doc,updateDoc}=window._fb;
+  if(editId){await updateDoc(doc(db,'roomTypes',editId),data);toast('Típus frissítve!','ok');}
+  else{await addDoc(collection(db,'roomTypes'),data);toast('Típus hozzáadva!','ok');}
+  closeM('m-type-form');await fetchAll();loadAdminTypes();renderTypes();
+}
+async function deleteType(id){
+  if(!confirm('Biztosan törli a típust? A hozzá tartozó szobák is törlődnek!'))return;
+  const{db,doc,deleteDoc,collection,getDocs,query,where}=window._fb;
+  await deleteDoc(doc(db,'roomTypes',id));
+  const rmSnap=await getDocs(query(collection(db,'rooms'),where('typeId','==',id)));
+  for(const d of rmSnap.docs)await deleteDoc(doc(db,'rooms',d.id));
+  toast('Típus és szobái törölve.','in');await fetchAll();loadAdminTypes();loadAdminRooms();renderTypes();
 }
 
-function openAddRoom(){
-  document.getElementById('addroom-title').textContent='Új szoba';
-  ['nr-name','nr-desc','nr-price','nr-code','nr-am'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('nr-cap').value=2;
-  document.getElementById('nr-emoji').value='🛏️';
-  document.getElementById('nr-feat').value='0';
-  document.getElementById('nr-edit-id').value='';
-  openModal('m-addroom');
-}
-
-async function saveRoom(){
-  const name=document.getElementById('nr-name').value.trim();
-  const price=+document.getElementById('nr-price').value;
-  if(!name||!price){toast('Név és ár kötelező!','err');return;}
-  const data={name,desc:document.getElementById('nr-desc').value.trim(),price,capacity:+document.getElementById('nr-cap').value||2,emoji:document.getElementById('nr-emoji').value.trim()||'🛏️',code:document.getElementById('nr-code').value.trim(),featured:document.getElementById('nr-feat').value==='1',amenities:document.getElementById('nr-am').value.split(',').map(s=>s.trim()).filter(Boolean)};
-  const editId=document.getElementById('nr-edit-id').value;
-  const {db,collection,addDoc,doc,updateDoc}=window._fb;
-  if(editId){
-    await updateDoc(doc(db,'rooms',editId),data);
-    toast('Szoba frissítve!','ok');
-  } else {
-    await addDoc(collection(db,'rooms'),data);
-    toast('Szoba hozzáadva!','ok');
-  }
-  closeModal('m-addroom');
-  await fetchRooms();
-  loadAdminRooms();renderRooms();
-}
-
-async function deleteRoom(id){
-  if(!confirm('Biztosan törli a szobát?'))return;
-  const {db,doc,deleteDoc}=window._fb;
-  await deleteDoc(doc(db,'rooms',id));
-  rooms=rooms.filter(r=>r.id!==id);
-  toast('Szoba törölve.','inf');
-  loadAdminRooms();renderRooms();
-}
-
-function aTab(t){
-  ['bk','abk','rm','rv'].forEach(x=>{const el=document.getElementById('at-'+x);if(el)el.style.display=t===x?'':'none';});
-  document.querySelectorAll('#page-admin .tb').forEach((b,i)=>b.classList.toggle('active',['bk','abk','rm','rv'][i]===t));
-  if(t==='abk') initAbForm();
-  if(t==='rv') loadAdminRv();
-}
-
-// ADMIN REVIEWS
-async function loadAdminRv(){
+// ADMIN ROOMS
+function loadAdminRooms(){
   if(!isAdmin)return;
-  const {db,collection,getDocs}=window._fb;
-  const tb=document.getElementById('a-rv-tb'); if(!tb) return;
-  const snap=await getDocs(collection(db,'reviews'));
-  const rvs=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-  if(!rvs.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--tm);">Még nincs vélemény.</td></tr>';return;}
-  tb.innerHTML=rvs.map(r=>`<tr>
-    <td>${r.name||'–'}<br><span style="font-size:0.7rem;color:var(--tm);">${r.userEmail}</span></td>
-    <td>${r.roomName||'–'}</td>
-    <td><span style="color:var(--gold);">${'★'.repeat(r.rating||0)}</span></td>
-    <td style="max-width:180px;font-style:italic;font-size:0.76rem;color:var(--td);">${r.text}</td>
-    <td style="font-size:0.72rem;color:var(--tm);">${r.createdAt?.seconds?new Date(r.createdAt.seconds*1000).toLocaleDateString('hu-HU'):''}</td>
-    <td><button class="btn bd bsm" onclick="deleteRv('${r.id}')">Törlés</button></td>
+  const tb=document.getElementById('a-rm-tb');if(!tb)return;
+  const flt=document.getElementById('a-rm-flt')?.value||'';
+  // update filter dropdown
+  const fltSel=document.getElementById('a-rm-flt');
+  if(fltSel&&fltSel.options.length<=1){
+    roomTypes.forEach(t=>{const o=document.createElement('option');o.value=t.id;o.textContent=t.name;fltSel.appendChild(o);});
+  }
+  let list=flt?physRooms.filter(r=>r.typeId===flt):physRooms;
+  if(!list.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--tm);">Nincs szoba. Hozzon létre egyet!</td></tr>';return;}
+  const stMap={active:'<span class="badge b-c">Aktív</span>',maintenance:'<span class="badge b-p">Karbantartás</span>',inactive:'<span class="badge b-x">Inaktív</span>'};
+  tb.innerHTML=list.map(r=>`<tr>
+    <td><strong style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;">#${r.number}</strong></td>
+    <td>${r.typeName||roomTypes.find(t=>t.id===r.typeId)?.name||'–'}</td>
+    <td>${r.floor||'–'}</td>
+    <td>${stMap[r.status]||r.status}</td>
+    <td style="font-size:.75rem;color:var(--tm);">${r.note||'–'}</td>
+    <td style="display:flex;gap:.35rem;">
+      <button class="btn bo bsm" onclick="openRoomForm('${r.id}')">Szerkeszt</button>
+      <button class="btn bd bsm" onclick="deleteRoom('${r.id}')">Törlés</button>
+    </td>
   </tr>`).join('');
 }
-async function deleteRv(id){
-  if(!confirm('Törli?'))return;
-  const {db,doc,deleteDoc}=window._fb;
-  await deleteDoc(doc(db,'reviews',id));
-  toast('Vélemény törölve.','inf');
-  loadAdminRv();loadReviews();
+
+function openRoomForm(id){
+  const r=id?physRooms.find(x=>x.id===id):null;
+  document.getElementById('rf-title').textContent=r?'Szoba szerkesztése':'Új szoba';
+  document.getElementById('rf-id').value=id||'';
+  document.getElementById('rf-num').value=r?.number||'';
+  document.getElementById('rf-floor').value=r?.floor||'';
+  document.getElementById('rf-status').value=r?.status||'active';
+  document.getElementById('rf-note').value=r?.note||'';
+  const ts=document.getElementById('rf-type');
+  ts.innerHTML=roomTypes.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
+  if(r?.typeId)ts.value=r.typeId;
+  openM('m-room-form');
+}
+async function saveRoom(){
+  const num=document.getElementById('rf-num').value.trim();
+  const typeId=document.getElementById('rf-type').value;
+  const t=roomTypes.find(x=>x.id===typeId);
+  if(!num||!typeId){toast('Szobaszám és típus kötelező!','er');return;}
+  const data={number:num,typeId,typeName:t?.name||'',floor:document.getElementById('rf-floor').value.trim(),status:document.getElementById('rf-status').value,note:document.getElementById('rf-note').value.trim()};
+  const editId=document.getElementById('rf-id').value;
+  const{db,collection,addDoc,doc,updateDoc}=window._fb;
+  if(editId){await updateDoc(doc(db,'rooms',editId),data);toast('Szoba frissítve!','ok');}
+  else{await addDoc(collection(db,'rooms'),data);toast('Szoba hozzáadva!','ok');}
+  closeM('m-room-form');await fetchAll();loadAdminRooms();renderTypes();
+}
+async function deleteRoom(id){
+  if(!confirm('Biztosan törli a szobát?'))return;
+  const{db,doc,deleteDoc}=window._fb;
+  await deleteDoc(doc(db,'rooms',id));
+  toast('Szoba törölve.','in');await fetchAll();loadAdminRooms();renderTypes();
 }
 
-// ══════════════════════════════
-// REVIEWS
-// ══════════════════════════════
+// ── REVIEWS ──
 function initRvStars(){
-  const el=document.getElementById('rv-stars'); if(!el) return;
+  const el=document.getElementById('rv-stars');if(!el)return;
   el.querySelectorAll('.star').forEach(s=>{
-    s.addEventListener('click',()=>{
-      rvRating=+s.dataset.v;
-      el.querySelectorAll('.star').forEach((st,i)=>st.classList.toggle('on',i<rvRating));
-    });
-    s.addEventListener('mouseover',()=>el.querySelectorAll('.star').forEach((st,i)=>st.classList.toggle('hov',i<+s.dataset.v)));
-    s.addEventListener('mouseout',()=>el.querySelectorAll('.star').forEach(st=>st.classList.remove('hov')));
+    s.addEventListener('click',()=>{rvRating=+s.dataset.v;el.querySelectorAll('.star').forEach((st,i)=>st.classList.toggle('on',i<rvRating));});
+    s.addEventListener('mouseover',()=>el.querySelectorAll('.star').forEach((st,i)=>st.classList.toggle('hv',i<+s.dataset.v)));
+    s.addEventListener('mouseout',()=>el.querySelectorAll('.star').forEach(st=>st.classList.remove('hv')));
   });
 }
 
 async function loadReviews(){
-  const {db,collection,getDocs}=window._fb;
-  const rvSel=document.getElementById('rv-room');
-  if(rvSel) rvSel.innerHTML=rooms.map(r=>`<option value="${r.id}">${r.name}</option>`).join('');
+  const{db,collection,getDocs}=window._fb;
+  // update type select
+  const ts=document.getElementById('rv-type');
+  if(ts)ts.innerHTML=roomTypes.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
 
-  const fw=document.getElementById('rv-form-wrap');
-  if(!CU&&fw){
-    fw.innerHTML='<p style="color:var(--tm);font-size:0.8rem;font-style:italic;padding:1rem 0;">Vélemény írásához kérjük, <button class="btn bo bsm" onclick="go(\'auth\')" style="margin-left:0.4rem;">jelentkezzen be</button></p>';
+  // show/hide form based on login state
+  const wrap=document.getElementById('rv-wrap');
+  if(wrap){
+    if(CU){
+      if(!document.getElementById('rv-inner')){
+        wrap.innerHTML=`<div class="pe" style="margin-bottom:1rem;">Vélemény írása</div><div id="rv-inner"><div class="fg" style="margin-bottom:1rem;"><label>Szobatípus</label><select id="rv-type">${roomTypes.map(t=>`<option value="${t.id}">${t.name}</option>`).join('')}</select></div><div class="fg" style="margin-bottom:1rem;"><label>Értékelés</label><div class="stars" id="rv-stars"><span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span></div></div><div class="fg" style="margin-bottom:1.2rem;"><label>Vélemény *</label><textarea id="rv-txt" placeholder="Írja meg tapasztalatát..."></textarea></div><button class="btn bg blk" onclick="submitReview()">Vélemény küldése</button></div>`;
+        initRvStars();
+      }
+    }else{
+      wrap.innerHTML=`<div class="pe" style="margin-bottom:1rem;">Vélemény írása</div><p style="color:var(--tm);font-size:.82rem;line-height:1.7;">Vélemény írásához kérjük, <button class="btn bo bsm" onclick="go('auth')" style="margin-left:.3rem;">jelentkezzen be</button></p>`;
+    }
   }
 
   const snap=await getDocs(collection(db,'reviews'));
@@ -1335,18 +1221,16 @@ async function loadReviews(){
   const avgEl=document.getElementById('avg-r'),cntEl=document.getElementById('rv-cnt'),asEl=document.getElementById('avg-stars');
   if(rvs.length&&avgEl){
     const avg=(rvs.reduce((s,r)=>s+(r.rating||0),0)/rvs.length).toFixed(1);
-    avgEl.textContent=avg;if(cntEl)cntEl.textContent=`${rvs.length} vélemény`;
+    avgEl.textContent=avg;
+    if(cntEl)cntEl.textContent=`${rvs.length} vélemény`;
     if(asEl)asEl.innerHTML=Array(5).fill(0).map((_,i)=>`<span class="star${i<Math.round(+avg)?' on':''}">★</span>`).join('');
-  } else if(avgEl){avgEl.textContent='–';}
-  if(!g) return;
-  if(!rvs.length){g.innerHTML='<div style="text-align:center;padding:3rem;color:var(--tm);">Még nincs vélemény.</div>';return;}
+  }else if(avgEl)avgEl.textContent='–';
+  if(!g)return;
+  if(!rvs.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--tm);font-style:italic;">Még nincs vélemény.</div>';return;}
   g.innerHTML=rvs.map(r=>`<div class="rvc">
     <div class="rvh">
       <div class="rvav">${(r.name||'?')[0].toUpperCase()}</div>
-      <div>
-        <div style="font-size:0.82rem;font-weight:500;">${r.name||'Névtelen'}</div>
-        <div style="font-size:0.68rem;color:var(--tm);">${r.roomName||''} · ${r.createdAt?.seconds?new Date(r.createdAt.seconds*1000).toLocaleDateString('hu-HU'):''}</div>
-      </div>
+      <div><div style="font-size:.82rem;font-weight:500;">${r.name||'Névtelen'}</div><div style="font-size:.68rem;color:var(--tm);">${r.typeName||''} · ${r.createdAt?.seconds?new Date(r.createdAt.seconds*1000).toLocaleDateString('hu-HU'):''}</div></div>
       <div class="stars" style="margin-left:auto;">${Array(5).fill(0).map((_,i)=>`<span class="star${i<(r.rating||0)?' on':''}">★</span>`).join('')}</div>
     </div>
     <div class="rvtxt">${r.text}</div>
@@ -1354,30 +1238,48 @@ async function loadReviews(){
 }
 
 async function submitReview(){
-  if(!CU){toast('Bejelentkezés szükséges!','inf');return;}
-  const rid=document.getElementById('rv-room')?.value;
-  const r=rooms.find(x=>x.id===rid);
+  if(!CU){toast('Bejelentkezés szükséges!','in');return;}
+  const typeId=document.getElementById('rv-type')?.value;
+  const t=roomTypes.find(x=>x.id===typeId);
   const txt=document.getElementById('rv-txt')?.value.trim();
-  if(!txt){toast('Írja meg a véleményét!','err');return;}
-  if(!rvRating){toast('Adjon értékelést (csillagok)!','err');return;}
-  const {db,collection,addDoc,serverTimestamp}=window._fb;
-  await addDoc(collection(db,'reviews'),{
-    userId:CU.uid,name:CU.email.split('@')[0],userEmail:CU.email,
-    roomId:rid||'',roomName:r?.name||'',rating:rvRating,text:txt,
-    createdAt:serverTimestamp()
-  });
+  if(!txt){toast('Írja meg a véleményét!','er');return;}
+  if(!rvRating){toast('Adjon értékelést (csillagok)!','er');return;}
+  const{db,collection,addDoc,serverTimestamp}=window._fb;
+  await addDoc(collection(db,'reviews'),{userId:CU.uid,name:CU.email.split('@')[0],userEmail:CU.email,typeId:typeId||'',typeName:t?.name||'',rating:rvRating,text:txt,createdAt:serverTimestamp()});
   toast('Köszönjük véleményét!','ok');
-  document.getElementById('rv-txt').value='';
   rvRating=0;
+  if(document.getElementById('rv-txt'))document.getElementById('rv-txt').value='';
   document.querySelectorAll('#rv-stars .star').forEach(s=>s.classList.remove('on'));
   loadReviews();
 }
 
-// ══════════════════════════════
-// CALENDAR
-// ══════════════════════════════
+// ADMIN REVIEWS
+async function loadAdminRv(){
+  if(!isAdmin)return;
+  const{db,collection,getDocs}=window._fb;
+  const tb=document.getElementById('a-rv-tb');if(!tb)return;
+  const snap=await getDocs(collection(db,'reviews'));
+  const rvs=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+  if(!rvs.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--tm);">Nincs vélemény.</td></tr>';return;}
+  tb.innerHTML=rvs.map(r=>`<tr>
+    <td>${r.name||'–'}<br><span style="font-size:.7rem;color:var(--tm);">${r.userEmail}</span></td>
+    <td>${r.typeName||'–'}</td>
+    <td><span style="color:var(--gold);">${'★'.repeat(r.rating||0)}</span></td>
+    <td style="max-width:180px;font-style:italic;font-size:.76rem;color:var(--td);">${r.text}</td>
+    <td style="font-size:.72rem;color:var(--tm);">${r.createdAt?.seconds?new Date(r.createdAt.seconds*1000).toLocaleDateString('hu-HU'):''}</td>
+    <td><button class="btn bd bsm" onclick="deleteRv('${r.id}')">Törlés</button></td>
+  </tr>`).join('');
+}
+async function deleteRv(id){
+  if(!confirm('Törli?'))return;
+  const{db,doc,deleteDoc}=window._fb;
+  await deleteDoc(doc(db,'reviews',id));
+  toast('Vélemény törölve.','in');loadAdminRv();loadReviews();
+}
+
+// ── CALENDAR ──
 async function renderCal(){
-  const {db,collection,getDocs}=window._fb;
+  const{db,collection,getDocs}=window._fb;
   const snap=await getDocs(collection(db,'bookings'));
   const allB=snap.docs.map(d=>d.data()).filter(b=>b.status!=='cancelled');
   const months=['Január','Február','Március','Április','Május','Június','Július','Augusztus','Szeptember','Október','November','December'];
@@ -1385,16 +1287,20 @@ async function renderCal(){
   const g=document.getElementById('cal-grid');
   g.innerHTML=['H','K','Sze','Cs','P','Szo','V'].map(d=>`<div class="cdn">${d}</div>`).join('');
   const off=(new Date(calY,calM,1).getDay()+6)%7;
-  const tot=new Date(calY,calM+1,0).getDate();
+  const tot2=new Date(calY,calM+1,0).getDate();
   const td=new Date();
-  for(let i=0;i<off;i++) g.innerHTML+=`<div class="cd empty"></div>`;
-  for(let d=1;d<=tot;d++){
+  for(let i=0;i<off;i++)g.innerHTML+=`<div class="cd em"></div>`;
+  const totalRooms=physRooms.filter(r=>r.status==='active').length||1;
+  for(let d=1;d<=tot2;d++){
     const ds=`${calY}-${String(calM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const past=new Date(ds)<new Date(td.toDateString());
     const today=d===td.getDate()&&calM===td.getMonth()&&calY===td.getFullYear();
     const dayB=allB.filter(b=>b.checkin<=ds&&b.checkout>ds);
-    const cls=['cd',past?'past':'',today?'today':'',dayB.length>=rooms.length&&rooms.length>0?'full-b':dayB.length>0?'has-b':''].filter(Boolean).join(' ');
-    g.innerHTML+=`<div class="${cls}" onclick="showCalDay('${ds}',${JSON.stringify(dayB).replace(/"/g,'&quot;')})">${d}</div>`;
+    let cls='cd';
+    if(past)cls+=' pa';else if(today)cls+=' td2';
+    else if(dayB.length>=totalRooms)cls+=' fb';
+    else if(dayB.length>0)cls+=' hb';
+    g.innerHTML+=`<div class="${cls}" onclick="showCalDay('${ds}',${safeJ(dayB)})">${d}</div>`;
   }
   document.getElementById('cal-p').onclick=()=>{calM--;if(calM<0){calM=11;calY--;}renderCal();};
   document.getElementById('cal-n').onclick=()=>{calM++;if(calM>11){calM=0;calY++;}renderCal();};
@@ -1402,64 +1308,84 @@ async function renderCal(){
 
 function showCalDay(ds,dayB){
   const el=document.getElementById('cal-det');
-  if(!dayB.length){el.innerHTML=`<div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:0.5rem;">📅 ${ds}</div><p style="color:var(--tm);font-size:0.8rem;font-style:italic;">Ezen a napon nincs foglalás.</p>`;return;}
-  el.innerHTML=`<div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:1.2rem;">📅 ${ds} – ${dayB.length} foglalás</div>`+
-    dayB.map(b=>`<div style="border:1px solid var(--bl);border-radius:var(--r);padding:0.9rem;margin-bottom:0.55rem;">
-      <div style="font-weight:500;font-size:0.82rem;margin-bottom:0.25rem;">${b.roomName}</div>
-      <div style="font-size:0.72rem;color:var(--tm);">${b.firstname||''} ${b.lastname||''}</div>
-      <div style="font-size:0.72rem;color:var(--tm);">${b.checkin} → ${b.checkout}</div>
-      <div style="margin-top:0.4rem;display:flex;gap:0.4rem;flex-wrap:wrap;">
+  if(!dayB.length){el.innerHTML=`<div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;margin-bottom:.5rem;">📅 ${ds}</div><p style="color:var(--tm);font-size:.8rem;font-style:italic;">Ezen a napon nincs foglalás.</p>`;return;}
+  el.innerHTML=`<div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;margin-bottom:1.2rem;">📅 ${ds} – ${dayB.length} foglalás</div>`+
+    dayB.map(b=>`<div style="border:1px solid var(--bl);border-radius:var(--r);padding:.9rem;margin-bottom:.5rem;">
+      <div style="font-weight:500;font-size:.82rem;margin-bottom:.2rem;">${b.typeName||'–'} ${b.roomNumber?'<span style="color:var(--gold);">#'+b.roomNumber+'</span>':''}</div>
+      <div style="font-size:.72rem;color:var(--tm);">${b.firstname||''} ${b.lastname||''}</div>
+      <div style="font-size:.72rem;color:var(--tm);">${b.checkin} → ${b.checkout}</div>
+      <div style="margin-top:.4rem;display:flex;gap:.4rem;flex-wrap:wrap;">
         <span class="badge ${bCls(b.status)}">${bLbl(b.status)}</span>
-        ${b.checkedIn?'<span class="badge bco">✓ Check-in</span>':''}
-        ${b.checkedOut?'<span class="badge bi">✓ Check-out</span>':''}
+        ${b.checkedIn?'<span class="badge b-ok">✓ Check-in</span>':''}
+        ${b.checkedOut?'<span class="badge b-ok">✓ Check-out</span>':''}
       </div>
     </div>`).join('');
 }
 
-// ══════════════════════════════
-// AUTH
-// ══════════════════════════════
+// ── CHART ──
+function renderChart(bks){
+  const c=document.getElementById('bk-chart');if(!c)return;
+  const labels=[],data=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const ds=d.toISOString().split('T')[0];
+    labels.push(d.toLocaleDateString('hu-HU',{month:'short',day:'numeric'}));
+    data.push(bks.filter(b=>b.createdAt?.seconds&&new Date(b.createdAt.seconds*1000).toISOString().split('T')[0]===ds).length);
+  }
+  if(bkChart)bkChart.destroy();
+  bkChart=new Chart(c,{type:'bar',data:{labels,datasets:[{label:'Foglalások',data,backgroundColor:'rgba(201,168,76,.22)',borderColor:'rgba(201,168,76,.75)',borderWidth:1.5,borderRadius:2}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(255,255,255,.03)'},ticks:{color:'#42404e',font:{size:11,family:'Jost'}}},y:{grid:{color:'rgba(255,255,255,.03)'},ticks:{color:'#42404e',font:{size:11,family:'Jost'},stepSize:1},beginAtZero:true}}}});
+}
+
+// ── AUTH ──
 function authTab(t){
-  document.getElementById('auth-li').style.display=t==='login'?'':'none';
-  document.getElementById('auth-reg').style.display=t==='register'?'':'none';
-  document.querySelectorAll('#page-auth .tb').forEach((b,i)=>b.classList.toggle('active',(i===0&&t==='login')||(i===1&&t==='register')));
+  document.getElementById('auth-li').style.display=t==='li'?'':'none';
+  document.getElementById('auth-reg').style.display=t==='reg'?'':'none';
+  document.querySelectorAll('#page-auth .tb').forEach((b,i)=>b.classList.toggle('on',(i===0&&t==='li')||(i===1&&t==='reg')));
 }
 async function doLogin(){
-  const {auth,signInWithEmailAndPassword}=window._fb;
+  const{auth,signInWithEmailAndPassword}=window._fb;
   try{await signInWithEmailAndPassword(auth,document.getElementById('l-em').value,document.getElementById('l-pw').value);toast('Sikeres bejelentkezés!','ok');}
-  catch(e){toast('Hibás email vagy jelszó.','err');}
+  catch(e){toast('Hibás email vagy jelszó.','er');}
 }
-async function doRegister(){
-  const {auth,db,createUserWithEmailAndPassword,doc,setDoc}=window._fb;
+async function doReg(){
+  const{auth,db,createUserWithEmailAndPassword,doc,setDoc}=window._fb;
   const em=document.getElementById('r-em').value,pw=document.getElementById('r-pw').value;
   try{
     const cred=await createUserWithEmailAndPassword(auth,em,pw);
     await setDoc(doc(db,'users',cred.user.uid),{email:em,role:'user',firstname:document.getElementById('r-fn').value,lastname:document.getElementById('r-ln').value,createdAt:new Date().toISOString()});
     toast('Sikeres regisztráció!','ok');
-  }catch(e){toast('Hiba: '+e.message,'err');}
+  }catch(e){toast('Hiba: '+e.message,'er');}
 }
-async function logout(){
-  const {auth,signOut}=window._fb;
-  await signOut(auth);toast('Kijelentkezett.','inf');go('home');
+async function logout(){const{auth,signOut}=window._fb;await signOut(auth);toast('Kijelentkezett.','in');go('home');}
+
+// ── ADMIN TABS ──
+function aTab(t){
+  ['bk','abk','typ','rm','rv'].forEach(x=>{const el=document.getElementById('at-'+x);if(el)el.style.display=t===x?'':'none';});
+  document.querySelectorAll('#page-admin .tb').forEach((b,i)=>b.classList.toggle('on',['bk','abk','typ','rm','rv'][i]===t));
+  if(t==='abk')initAbForm();
+  if(t==='rv')loadAdminRv();
 }
 
-// ══════════════════════════════
-// UTILS
-// ══════════════════════════════
-function bCls(s){return{pending:'bp',confirmed:'bc',cancelled:'bx'}[s]||'bp';}
-function bLbl(s){return{pending:'Függőben',confirmed:'Visszaigazolt',cancelled:'Lemondva'}[s]||s;}
-function srcLbl(s){return{online:'Online',phone:'Telefon',walkin:'Személyes',email_src:'Email',admin:'Admin',other:'Egyéb'}[s]||'Online';}
-function openModal(id){document.getElementById(id).classList.add('open');}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-window.addEventListener('click',e=>{if(e.target.classList.contains('mo'))document.querySelectorAll('.mo.open').forEach(m=>m.classList.remove('open'));});
-function toast(msg,type='inf'){
-  const ic={ok:'✓',err:'✕',inf:'ℹ'};
+// ── MODALS ──
+function openM(id){document.getElementById(id).classList.add('op');}
+function closeM(id){document.getElementById(id).classList.remove('op');}
+window.addEventListener('click',e=>{if(e.target.classList.contains('mo'))document.querySelectorAll('.mo.op').forEach(m=>m.classList.remove('op'));});
+
+// ── TOAST ──
+function toast(msg,type='in'){
+  const ic={ok:'✓',er:'✕',in:'ℹ'};
   const el=document.createElement('div');
   el.className=`toast ${type}`;
   el.innerHTML=`<span>${ic[type]||'ℹ'}</span><span>${msg}</span>`;
   document.getElementById('toasts').appendChild(el);
   setTimeout(()=>el.remove(),4500);
 }
+
+// ── UTILS ──
+function bCls(s){return{pending:'b-p',confirmed:'b-c',cancelled:'b-x'}[s]||'b-p';}
+function bLbl(s){return{pending:'Függőben',confirmed:'Visszaigazolt',cancelled:'Lemondva'}[s]||s;}
+function srcLbl(s){return{online:'Online',phone:'Telefon',walkin:'Személyes',email_src:'Email',admin:'Admin',other:'Egyéb'}[s]||'Online';}
+function safeJ(obj){return JSON.stringify(obj).replace(/'/g,"&#39;").replace(/"/g,'&quot;');}
 </script>
 </body>
 </html>
